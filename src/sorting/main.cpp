@@ -5,8 +5,9 @@
 
 using std::cout;
 using std::endl;
-using sorting::bubble_sort;
 using sorting::randomize;
+using sorting::bubble_sort;
+using sorting::merge_sort;
 
 template <typename T>
 void print_container(T begin, T end);
@@ -18,9 +19,16 @@ int main() {
   randomize(ints, ints + SIZE);
   cout << "ints (randomize()): ";
   print_container(ints, ints + SIZE);
-
   bubble_sort<int>(ints + 0, ints + SIZE);
   cout << "ints (bubble_sort()): ";
+  print_container(ints, ints + SIZE);
+
+  cout << endl;
+  randomize(ints, ints + SIZE);
+  cout << "ints (randomize()): ";
+  print_container(ints, ints + SIZE);
+  merge_sort<int>(ints + 0, ints + SIZE);
+  cout << "ints (merge_sort()): ";
   print_container(ints, ints + SIZE);
 
 
@@ -37,6 +45,7 @@ int main() {
 
 template <typename T>
 void print_container(T begin, T end) {
+  cout << "[ ";
   while(begin < end) cout << *begin++ << ", ";
-  cout << endl;
+  cout << "]" << endl;
 }

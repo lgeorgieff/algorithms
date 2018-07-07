@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <random>
+#include <list>
 
 namespace sorting {
 template <typename T>
@@ -29,5 +30,26 @@ void bubble_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp) 
       if (comp(*outer_iter, *inner_iter) == 1) std::swap(*outer_iter, *inner_iter);
     }
   }
+}
+
+template <typename T>
+void merge_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp) {
+  if (begin >= end - 1) return;
+
+  auto begin_left{begin}, end_left{begin + ((end - begin) / 2)}, begin_right{end_left},
+      end_right{end};
+
+  merge_sort(begin_left, end_left, comp);
+  merge_sort(begin_right, end_right, comp);
+
+  std::list<T> tmp;
+  while(begin_left < end_left && begin_right < end_right) {
+    if (comp(*begin_left, *begin_right) <= 0) tmp.push_back(*begin_left++);
+    else tmp.push_back(*begin_right++);
+  }
+  while(begin_left < end_left) tmp.push_back(*begin_left++);
+  while(begin_right < end_right) tmp.push_back(*begin_right++);
+
+  for(auto iter_tmp{tmp.begin()}; iter_tmp != tmp.end(); ++iter_tmp) std::swap(*iter_tmp, *begin++);
 }
 } // namespace sorting
