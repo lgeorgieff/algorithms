@@ -8,6 +8,7 @@ using std::endl;
 using sorting::randomize;
 using sorting::bubble_sort;
 using sorting::merge_sort;
+using sorting::insertion_sort;
 
 template <typename T>
 void print_container(T begin, T end);
@@ -31,6 +32,13 @@ int main() {
   cout << "ints (merge_sort()): ";
   print_container(ints, ints + SIZE);
 
+  cout << endl;
+  randomize(ints, ints + SIZE);
+  cout << "ints (randomize()): ";
+  print_container(ints, ints + SIZE);
+  insertion_sort<int>(ints + 0, ints + SIZE);
+  cout << "ints (insertion_sort()): ";
+  print_container(ints, ints + SIZE);
 
 
 
@@ -46,6 +54,10 @@ int main() {
 template <typename T>
 void print_container(T begin, T end) {
   cout << "[ ";
-  while(begin < end) cout << *begin++ << ", ";
+  while(begin < end) {
+    cout << *begin++;
+    if (begin != end) cout << ", ";
+    else cout << " ";
+  }
   cout << "]" << endl;
 }
