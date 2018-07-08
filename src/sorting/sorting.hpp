@@ -17,7 +17,7 @@ template<typename T>
 void merge_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_fn<T>);
 
 template<typename T>
-void quick_sort(T &t);
+void quick_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_fn<T>);
 
 template<typename T>
 void insertion_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_fn<T>);

@@ -9,6 +9,7 @@ using sorting::randomize;
 using sorting::bubble_sort;
 using sorting::merge_sort;
 using sorting::insertion_sort;
+using sorting::quick_sort;
 
 template <typename T>
 void print_container(T begin, T end);
@@ -40,7 +41,13 @@ int main() {
   cout << "ints (insertion_sort()): ";
   print_container(ints, ints + SIZE);
 
-
+  cout << endl;
+  randomize(ints, ints + SIZE);
+  cout << "ints (randomize()): ";
+  print_container(ints, ints + SIZE);
+  quick_sort<int>(ints + 0, ints + SIZE);
+  cout << "ints (quick_sort()): ";
+  print_container(ints, ints + SIZE);
 
 
 
