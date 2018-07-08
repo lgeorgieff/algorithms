@@ -86,6 +86,6 @@ void quick_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp) {
   }
 
   if (left > begin) quick_sort(begin, left, comp);
-  if (right < end) quick_sort(right, end, comp);
+  if (right < end) quick_sort(right + 1, end, comp);
 }
 } // namespace sorting
