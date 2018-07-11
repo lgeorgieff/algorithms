@@ -35,4 +35,23 @@ std::vector<strings> partition_string(const std::string &str) {
   return result;
 }
 
+std::deque<int> shortest_subsequence(std::vector<int>::const_iterator begin,
+                                     std::vector<int>::const_iterator end, int threshold) {
+  std::deque<int> result;
+
+  std::deque<int> accumulator;
+  int current_sum{0};
+  for (auto iter{begin}; iter < end; ++iter) {
+    accumulator.push_back(*iter);
+    current_sum += *iter;
+
+    while (!accumulator.empty() && current_sum - accumulator.front() >= threshold) {
+      current_sum -= accumulator.front();
+      accumulator.pop_front();
+    }
+    if (current_sum >= threshold && (result.size() > accumulator.size() || result.empty()))
+      result = accumulator;
+  }
+  return result;
+}
 } // namespace containers
