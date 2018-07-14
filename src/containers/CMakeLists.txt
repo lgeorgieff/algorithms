@@ -4,4 +4,4 @@ project(containers)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(containers main.cpp containers.hpp containers.cpp)
+add_executable(containers main.cpp containers.hpp)

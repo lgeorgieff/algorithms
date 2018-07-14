@@ -2,14 +2,21 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include <deque>
 
 using std::string;
 using std::cout;
 using std::endl;
 using ints = std::vector<int>;
+using std::vector;
+using std::deque;
 
 using containers::partition_string;
 using containers::shortest_subsequence;
+using containers::permute;
+using containers::str_permute;
+using containers::permutation_fn;
 
 template<typename T>
 void print_container (const T &container, bool print_endl = true);
@@ -22,7 +29,7 @@ int main() {
 
   cout << endl << "=== shortest subsequence ===" << endl;
 
-  std::vector<ints> numbers {
+  vector<ints> numbers {
       {1, 4, 45, 6, 0, 19},
       {1, 10, 5, 2, 7},
       {1, 11, 100, 1, 0, 200, 3, 2, 1, 250},
@@ -37,6 +44,16 @@ int main() {
     cout << " [" << *threshold_iter << "] --> ";
     print_container(shortest_subsequence(ints_iter->cbegin(), ints_iter->cend(), *threshold_iter));
   }
+
+  cout << endl << "=== permute ===" << endl;
+  deque<string> string_permutations;
+  permutation_fn fn{[&string_permutations](auto begin, auto end){
+    string_permutations.push_back(string{begin, end});
+  }};
+  string pstr{"ABCD"};
+  permute(pstr.begin(), pstr.end(), fn);
+  cout << string_permutations.size() << ": ";
+  print_container(string_permutations);
 
   return 0;
 }

@@ -1,35 +1,53 @@
+#pragma once
+
 #include "containers.hpp"
 
 #include <cstddef>
+#include <iostream>
 
 namespace {
-  bool is_palindrom(size_t left, size_t right, const std::string &str) {
-    while (left < right) if (str[left++] != str[right--]) return false;
-    return true;
+bool is_palindrom(size_t left, size_t right, const std::string &str) {
+  while (left < right)
+    if (str[left++] != str[right--]) return false;
+  return true;
+}
+
+void partitionize(std::vector<std::vector<std::string>> &result,
+                  std::vector<std::string> &current, size_t start, size_t end,
+                  const std::string &str) {
+  if (start >= end) {
+    result.push_back(current);
+    return;
   }
 
-  void partitionize(std::vector<strings> &result, strings &current, size_t start, size_t end,
-                    const std::string &str) {
-    if (start >= end) {
-      result.push_back(current);
-      return;
-    }
-
-    for(size_t anchor{start}; anchor < end; ++anchor) {
-      if (is_palindrom(start, anchor, str)) {
-        current.push_back(str.substr(start, anchor - start + 1));
-        partitionize(result, current, anchor + 1, end, str);
-        current.pop_back();
-      }
+  for (size_t anchor{start}; anchor < end; ++anchor) {
+    if (is_palindrom(start, anchor, str)) {
+      current.push_back(str.substr(start, anchor - start + 1));
+      partitionize(result, current, anchor + 1, end, str);
+      current.pop_back();
     }
   }
-} // namespace
+}
+
+void _permute(std::string::iterator original_begin, std::string::iterator begin,
+              std::string::iterator end, containers::permutation_fn fn) {
+  if (begin == end - 1) {
+    fn(original_begin, end);
+  } else {
+    for(auto iter{begin}; iter < end; ++iter) {
+      std::swap(*begin, *iter);
+      _permute(original_begin, begin + 1, end, fn);
+      std::swap(*begin, *iter);
+    }
+  }
+}
+}  // namespace
 
 namespace containers {
 
-std::vector<strings> partition_string(const std::string &str) {
-  std::vector<strings> result;
-  strings current;
+std::vector<std::vector<std::string>> partition_string(const std::string &str) {
+  std::vector<std::vector<std::string>> result;
+  std::vector<std::string> current;
   partitionize(result, current, 0, str.size(), str);
 
   return result;
@@ -54,4 +72,16 @@ std::deque<int> shortest_subsequence(std::vector<int>::const_iterator begin,
   }
   return result;
 }
-} // namespace containers
+
+void print_permutation(std::string::iterator begin, std::string::iterator end) {
+  if (begin >= end) return;
+
+  std::cout << "\"";
+  while (begin < end) std::cout << *begin++;
+  std::cout << "\"" << std::endl;
+}
+
+void permute(std::string::iterator first, std::string::iterator end, permutation_fn fn) {
+  _permute(first, first, end, fn);
+}
+}  // namespace containers
