@@ -17,6 +17,7 @@ using containers::shortest_subsequence;
 using containers::permute;
 using containers::str_permute;
 using containers::permutation_fn;
+using containers::combine_inc;
 
 template<typename T>
 void print_container (const T &container, bool print_endl = true);
@@ -54,6 +55,12 @@ int main() {
   permute(pstr.begin(), pstr.end(), fn);
   cout << string_permutations.size() << ": ";
   print_container(string_permutations);
+
+  cout << endl << "=== combine_inc ===" << endl;
+  int a[]{10, 15, 25}, b[]{5, 20, 30};
+  auto inc_combinations{combine_inc(a, a + (sizeof(a) / sizeof(int)), b,
+                                    b + (sizeof(b) / sizeof(int)))};
+  for(const auto &combination : inc_combinations) print_container(combination);
 
   return 0;
 }

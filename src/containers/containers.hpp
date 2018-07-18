@@ -21,6 +21,9 @@ using permutation_fn = std::function<void(std::string::iterator, std::string::it
 void permute (std::string::iterator begin, std::string::iterator end,
               permutation_fn fn = print_permutation);
 
+template<typename T>
+std::vector<std::vector<T>> combine_inc(T *begin_a, T *end_a, T *begin_b, T *end_b);
+
 } // namespace containers
 
 #include "containers.cpp"
