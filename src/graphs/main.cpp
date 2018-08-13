@@ -8,6 +8,7 @@ using std::shared_ptr;
 
 using algorithms::graph::node;
 using algorithms::graph::bsd_iterative;
+using algorithms::graph::bsd_recursive;
 
 int main() {
   std::shared_ptr n0{node<int>::create(123)};
@@ -82,7 +83,11 @@ int main() {
     cout << (new_level ? "\n" : "") << value << " ";
   }};
 
-  algorithms::graph::bsd_iterative(n0, fn);
+  bsd_iterative(n0, fn);
+  cout << endl;
+
+  cout << endl << "=== bsd_recursive ===" << endl;
+  bsd_recursive(n0, fn);
 
   return 0;
 }
