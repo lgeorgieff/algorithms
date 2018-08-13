@@ -1,4 +1,5 @@
 #include "node.hpp"
+#include "bsd.hpp"
 #include <iostream>
 
 using std::cout;
@@ -6,6 +7,7 @@ using std::endl;
 using std::shared_ptr;
 
 using algorithms::graph::node;
+using algorithms::graph::bsd_iterative;
 
 int main() {
   std::shared_ptr n0{node<int>::create(123)};
@@ -61,5 +63,26 @@ int main() {
   cout << "n1 is connected with n0: " << (n1->is_connected(n0) ? "true" : "false") << endl;
   cout << "n0 connections: " << n0->connections().size() << endl;
   cout << "n1 connections: " << n1->connections().size() << endl;
+
+  cout << endl << "=== bsd_iterative ===" << endl;
+  n0 = node<int>::create(0);
+  n1 = node<int>::create(1);
+  n2 = node<int>::create(2);
+  std::shared_ptr<node<int>> n3{node<int>::create(3)};
+  std::shared_ptr<node<int>> n4{node<int>::create(4)};
+  std::shared_ptr<node<int>> n5{node<int>::create(5)};
+  std::shared_ptr<node<int>> n6{node<int>::create(6)};
+  std::shared_ptr<node<int>> n7{node<int>::create(7)};
+  std::shared_ptr<node<int>> n8{node<int>::create(8)};
+  std::shared_ptr<node<int>> n9{node<int>::create(9)};
+  n0->connect(n1); n0->connect(n2); n0->connect(n3);
+  n1->connect(n0); n1->connect(n4); n2->connect(n5); n3->connect(n5); n3->connect(n1);
+  n4->connect(n6); n4->connect(n7); n5->connect(n8); n5->connect(n9);
+  std::function<void(const int &, bool level_end)> fn{[](auto value, auto new_level){
+    cout << (new_level ? "\n" : "") << value << " ";
+  }};
+
+  algorithms::graph::bsd_iterative(n0, fn);
+
   return 0;
 }
