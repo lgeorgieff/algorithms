@@ -5,16 +5,9 @@
 #include <algorithm>
 
 namespace {
-template<typename T>
-using node_t = algorithms::graph::node<T>;
-template<typename T>
-using weak_ptr_hash = algorithms::graph::weak_ptr_hash<T>;
-template<typename T>
-using weak_ptr_equal = algorithms::graph::weak_ptr_equal<T>;
 
 template<typename T>
-void erase_dangling_pointers(std::unordered_set<std::weak_ptr<node_t<T>>,
-    weak_ptr_hash<node_t<T>>, weak_ptr_equal<node_t<T>>> &container) {
+void erase_dangling_pointers(algorithms::graph::unordered_set_weak_node<T> &container) {
   auto iter{container.begin()};
   while(iter != container.end()) {
     if(iter->expired()) iter = container.erase(iter);
@@ -23,8 +16,7 @@ void erase_dangling_pointers(std::unordered_set<std::weak_ptr<node_t<T>>,
 }
 
 template<typename T>
-size_t count_valid_pointers(const std::unordered_set<std::weak_ptr<node_t<T>>,
-    weak_ptr_hash<node_t<T>>, weak_ptr_equal<node_t<T>>> &container) {
+size_t count_valid_pointers(const algorithms::graph::unordered_set_weak_node<T> &container) {
   size_t counter{0};
   for(auto iter{container.begin()}; iter != container.end(); ++iter)
     if (!iter->expired()) ++counter;

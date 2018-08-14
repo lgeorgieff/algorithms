@@ -10,8 +10,7 @@
 namespace {
 template<typename T>
 void bfs_recursive_p(std::vector<std::shared_ptr<algorithms::graph::node<T>>> &current_level,
-    std::unordered_set<std::shared_ptr<algorithms::graph::node<T>>> &visited,
-    std::function<void(const T &, bool)> fn) {
+    algorithms::graph::unordered_set_shared_node<T> &visited, std::function<void(const T &, bool)> fn) {
   if(current_level.empty()) return;
 
   bool new_level{!visited.empty()};
@@ -59,6 +58,6 @@ void algorithms::graph::bfs_iterative(std::shared_ptr<node<T>> current_node, std
 template<typename T>
 void algorithms::graph::bfs_recursive(std::shared_ptr<node<T>> current_node, std::function<void(const T &, bool)> fn) {
   std::vector<std::shared_ptr<algorithms::graph::node<T>>> current_level{current_node};
-  std::unordered_set<std::shared_ptr<algorithms::graph::node<T>>> visited;
+  unordered_set_shared_node<T> visited;
   bfs_recursive_p(current_level, visited, fn);
 }

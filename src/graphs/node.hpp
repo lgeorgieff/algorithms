@@ -24,6 +24,15 @@ class weak_ptr_equal : public std::unary_function<std::weak_ptr<T>, bool> {
   }
 }; // class weak_ptr_equal
 
+template <typename T>
+class node;
+
+template<typename T>
+using unordered_set_weak_node = std::unordered_set<std::weak_ptr<algorithms::graph::node<T>>, weak_ptr_hash<algorithms::graph::node<T>>, weak_ptr_equal<algorithms::graph::node<T>>>;
+template<typename T>
+using unordered_set_shared_node = std::unordered_set<std::weak_ptr<algorithms::graph::node<T>>, weak_ptr_hash<algorithms::graph::node<T>>, weak_ptr_equal<algorithms::graph::node<T>>>;
+
+
 template<typename T>
 class node {
  public:
@@ -57,7 +66,7 @@ class node {
   node(const T &value);
 
  private:
-   std::unordered_set<std::weak_ptr<node>, weak_ptr_hash<node>, weak_ptr_equal<node>> _links;
+  unordered_set_weak_node<T> _links;
 };
 
 } // namespace node

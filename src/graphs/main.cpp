@@ -1,5 +1,6 @@
 #include "node.hpp"
 #include "bfs.hpp"
+#include "dfs.hpp"
 #include <iostream>
 
 using std::cout;
@@ -9,6 +10,8 @@ using std::shared_ptr;
 using algorithms::graph::node;
 using algorithms::graph::bfs_iterative;
 using algorithms::graph::bfs_recursive;
+using algorithms::graph::dfs_iterative;
+using algorithms::graph::dfs_recursive;
 
 int main() {
   std::shared_ptr n0{node<int>::create(123)};
@@ -79,15 +82,27 @@ int main() {
   n0->connect(n1); n0->connect(n2); n0->connect(n3);
   n1->connect(n0); n1->connect(n4); n2->connect(n5); n3->connect(n5); n3->connect(n1);
   n4->connect(n6); n4->connect(n7); n5->connect(n8); n5->connect(n9);
-  std::function<void(const int &, bool level_end)> fn{[](auto value, auto new_level){
+  std::function<void(const int &, bool level_end)> fn_bfs{[](auto value, auto new_level){
     cout << (new_level ? "\n" : "") << value << " ";
   }};
 
-  bfs_iterative(n0, fn);
+  bfs_iterative(n0, fn_bfs);
   cout << endl;
 
   cout << endl << "=== bfs_recursive ===" << endl;
-  bfs_recursive(n0, fn);
+  bfs_recursive(n0, fn_bfs);
+  cout << endl;
+
+  cout << endl << "=== dfs_iterative ===" << endl;
+  std::function<void(const int &)> fn_dfs{[](auto value){
+    cout << value << " ";
+  }};
+  dfs_iterative(n0, fn_dfs);
+  cout << endl;
+
+  cout << endl << "=== dfs_recursive ===" << endl;
+  dfs_recursive(n0, fn_dfs);
+  cout << endl;
 
   return 0;
 }
