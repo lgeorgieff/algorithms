@@ -1,5 +1,5 @@
 #include "node.hpp"
-#include "bsd.hpp"
+#include "bfs.hpp"
 #include <iostream>
 
 using std::cout;
@@ -7,8 +7,8 @@ using std::endl;
 using std::shared_ptr;
 
 using algorithms::graph::node;
-using algorithms::graph::bsd_iterative;
-using algorithms::graph::bsd_recursive;
+using algorithms::graph::bfs_iterative;
+using algorithms::graph::bfs_recursive;
 
 int main() {
   std::shared_ptr n0{node<int>::create(123)};
@@ -65,7 +65,7 @@ int main() {
   cout << "n0 connections: " << n0->connections().size() << endl;
   cout << "n1 connections: " << n1->connections().size() << endl;
 
-  cout << endl << "=== bsd_iterative ===" << endl;
+  cout << endl << "=== bfs_iterative ===" << endl;
   n0 = node<int>::create(0);
   n1 = node<int>::create(1);
   n2 = node<int>::create(2);
@@ -83,11 +83,11 @@ int main() {
     cout << (new_level ? "\n" : "") << value << " ";
   }};
 
-  bsd_iterative(n0, fn);
+  bfs_iterative(n0, fn);
   cout << endl;
 
-  cout << endl << "=== bsd_recursive ===" << endl;
-  bsd_recursive(n0, fn);
+  cout << endl << "=== bfs_recursive ===" << endl;
+  bfs_recursive(n0, fn);
 
   return 0;
 }

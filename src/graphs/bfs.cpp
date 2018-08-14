@@ -1,6 +1,6 @@
 #pragma once
 
-#include "bsd.hpp"
+#include "bfs.hpp"
 #include <deque>
 #include <unordered_set>
 #include <iterator>
@@ -9,7 +9,7 @@
 
 namespace {
 template<typename T>
-void bsd_recursive_p(std::vector<std::shared_ptr<algorithms::graph::node<T>>> &current_level,
+void bfs_recursive_p(std::vector<std::shared_ptr<algorithms::graph::node<T>>> &current_level,
     std::unordered_set<std::shared_ptr<algorithms::graph::node<T>>> &visited,
     std::function<void(const T &, bool)> fn) {
   if(current_level.empty()) return;
@@ -26,12 +26,12 @@ void bsd_recursive_p(std::vector<std::shared_ptr<algorithms::graph::node<T>>> &c
       if(sp != nullptr) next_level.push_back(sp);
     }
   }
-  bsd_recursive_p(next_level, visited, fn);
+  bfs_recursive_p(next_level, visited, fn);
 }
 } // anonymous namespace
 
 template<typename T>
-void algorithms::graph::bsd_iterative(std::shared_ptr<node<T>> current_node, std::function<void(const T &, bool)> fn) {
+void algorithms::graph::bfs_iterative(std::shared_ptr<node<T>> current_node, std::function<void(const T &, bool)> fn) {
   using container_t = std::vector<std::shared_ptr<node<T>>>;
   container_t current_level{current_node};
   container_t next_level;
@@ -57,8 +57,8 @@ void algorithms::graph::bsd_iterative(std::shared_ptr<node<T>> current_node, std
 }
 
 template<typename T>
-void algorithms::graph::bsd_recursive(std::shared_ptr<node<T>> current_node, std::function<void(const T &, bool)> fn) {
+void algorithms::graph::bfs_recursive(std::shared_ptr<node<T>> current_node, std::function<void(const T &, bool)> fn) {
   std::vector<std::shared_ptr<algorithms::graph::node<T>>> current_level{current_node};
   std::unordered_set<std::shared_ptr<algorithms::graph::node<T>>> visited;
-  bsd_recursive_p(current_level, visited, fn);
+  bfs_recursive_p(current_level, visited, fn);
 }
