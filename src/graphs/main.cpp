@@ -1,22 +1,29 @@
 #include "node.hpp"
 #include "bfs.hpp"
 #include "dfs.hpp"
+#include "dijsktra.hpp"
 #include <iostream>
 
 using std::cout;
 using std::endl;
 using std::shared_ptr;
+using std::function;
+using std::array;
+
 
 using algorithms::graph::node;
 using algorithms::graph::bfs_iterative;
 using algorithms::graph::bfs_recursive;
 using algorithms::graph::dfs_iterative;
 using algorithms::graph::dfs_recursive;
+using algorithms::graph::graph_matrix;
+using algorithms::graph::dijkstra_distance;
+using algorithms::graph::INFINITE;
 
 int main() {
-  std::shared_ptr n0{node<int>::create(123)};
-  std::shared_ptr n1{node<int>::create(456)};
-  std::shared_ptr n2{node<int>::create(789)};
+  shared_ptr n0{node<int>::create(123)};
+  shared_ptr n1{node<int>::create(456)};
+  shared_ptr n2{node<int>::create(789)};
 
   cout << "n0 empty: " << (n0->empty() ? "true" : "false") << " (" << n0->size() << ")" << endl;
   cout << "n1 empty: " << (n1->empty() ? "true" : "false") << " (" << n1->size() << ")" << endl;
@@ -72,17 +79,17 @@ int main() {
   n0 = node<int>::create(0);
   n1 = node<int>::create(1);
   n2 = node<int>::create(2);
-  std::shared_ptr<node<int>> n3{node<int>::create(3)};
-  std::shared_ptr<node<int>> n4{node<int>::create(4)};
-  std::shared_ptr<node<int>> n5{node<int>::create(5)};
-  std::shared_ptr<node<int>> n6{node<int>::create(6)};
-  std::shared_ptr<node<int>> n7{node<int>::create(7)};
-  std::shared_ptr<node<int>> n8{node<int>::create(8)};
-  std::shared_ptr<node<int>> n9{node<int>::create(9)};
+  shared_ptr<node<int>> n3{node<int>::create(3)};
+  shared_ptr<node<int>> n4{node<int>::create(4)};
+  shared_ptr<node<int>> n5{node<int>::create(5)};
+  shared_ptr<node<int>> n6{node<int>::create(6)};
+  shared_ptr<node<int>> n7{node<int>::create(7)};
+  shared_ptr<node<int>> n8{node<int>::create(8)};
+  shared_ptr<node<int>> n9{node<int>::create(9)};
   n0->connect(n1); n0->connect(n2); n0->connect(n3);
   n1->connect(n0); n1->connect(n4); n2->connect(n5); n3->connect(n5); n3->connect(n1);
   n4->connect(n6); n4->connect(n7); n5->connect(n8); n5->connect(n9);
-  std::function<void(const int &, bool level_end)> fn_bfs{[](auto value, auto new_level){
+  function<void(const int &, bool level_end)> fn_bfs{[](auto value, auto new_level){
     cout << (new_level ? "\n" : "") << value << " ";
   }};
 
@@ -103,6 +110,22 @@ int main() {
   cout << endl << "=== dfs_recursive ===" << endl;
   dfs_recursive(n0, fn_dfs);
   cout << endl;
+
+  cout << endl << "=== dijkstra ===" << endl;
+  const size_t GRAPH_SIZE{6};
+
+  graph_matrix<GRAPH_SIZE> matrix{
+      array<size_t, GRAPH_SIZE>{0, 2, 4, INFINITE, INFINITE, INFINITE},
+      array<size_t, GRAPH_SIZE>{INFINITE, 0, 1, 4, 2, INFINITE},
+      array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 0, INFINITE, 3, INFINITE},
+      array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 0, INFINITE, 2},
+      array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 3, 0, 2},
+      array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0}
+  };
+
+  array<size_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
+  for (size_t node{0}; node < distances.size(); ++node)
+    cout << "distance from 0 to " << node << ": " << distances[node] << endl;
 
   return 0;
 }
