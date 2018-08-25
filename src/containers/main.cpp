@@ -18,6 +18,7 @@ using containers::permute;
 using containers::str_permute;
 using containers::permutation_fn;
 using containers::combine_inc;
+using containers::all_substrings;
 
 template<typename T>
 void print_container (const T &container, bool print_endl = true);
@@ -61,6 +62,9 @@ int main() {
   auto inc_combinations{combine_inc(a, a + (sizeof(a) / sizeof(int)), b,
                                     b + (sizeof(b) / sizeof(int)))};
   for(const auto &combination : inc_combinations) print_container(combination);
+
+  cout << endl << "=== all_substrings ===" << endl;
+  all_substrings("ABC");
 
   return 0;
 }

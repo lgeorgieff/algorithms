@@ -24,6 +24,8 @@ void permute (std::string::iterator begin, std::string::iterator end,
 template<typename T>
 std::vector<std::vector<T>> combine_inc(T *begin_a, T *end_a, T *begin_b, T *end_b);
 
+void all_substrigns(const std::string &str);
+
 } // namespace containers
 
 #include "containers.cpp"

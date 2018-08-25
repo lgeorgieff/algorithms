@@ -29,27 +29,27 @@ void partitionize(std::vector<std::vector<std::string>> &result,
   }
 }
 
-void _permute(std::string::iterator original_begin, std::string::iterator begin,
+void permute_(std::string::iterator original_begin, std::string::iterator begin,
               std::string::iterator end, containers::permutation_fn fn) {
   if (begin == end - 1) {
     fn(original_begin, end);
   } else {
     for(auto iter{begin}; iter < end; ++iter) {
       std::swap(*begin, *iter);
-      _permute(original_begin, begin + 1, end, fn);
+      permute_(original_begin, begin + 1, end, fn);
       std::swap(*begin, *iter);
     }
   }
 }
 
 template<typename T>
-void _combine_inc(T *begin_a, T *end_a, T *begin_b, T *end_b, std::vector<std::vector<T>> &result,
+void combine_inc_(T *begin_a, T *end_a, T *begin_b, T *end_b, std::vector<std::vector<T>> &result,
                   std::vector<T> &accumulator) {
   if (!(accumulator.size() % 2)) {
     for(; begin_a < end_a; ++begin_a) {
       if (!accumulator.size() || *begin_a > accumulator.back()) {
         accumulator.push_back(*begin_a);
-        _combine_inc(begin_a + 1, end_a, begin_b, end_b, result, accumulator);
+        combine_inc_(begin_a + 1, end_a, begin_b, end_b, result, accumulator);
         accumulator.pop_back();
       }
     }
@@ -58,10 +58,21 @@ void _combine_inc(T *begin_a, T *end_a, T *begin_b, T *end_b, std::vector<std::v
       if (*begin_b > accumulator.back()) {
         accumulator.push_back(*begin_b);
         result.push_back(accumulator);
-        _combine_inc(begin_a, end_a, begin_b + 1, end_b, result, accumulator);
+        combine_inc_(begin_a, end_a, begin_b + 1, end_b, result, accumulator);
         accumulator.pop_back();
       }
     }
+  }
+}
+
+void all_substrings_(const std::string &str, size_t pos, std::string &container) {
+  if(pos >= str.size()) return;
+
+  for(size_t idx{pos}; idx < str.size(); ++idx) {
+    container.push_back(str[idx]);
+    std::cout << "_" << container << "_" << std::endl;
+    all_substrings_(str, idx + 1, container);
+    container.pop_back();
   }
 }
 }  // namespace
@@ -105,14 +116,21 @@ void print_permutation(std::string::iterator begin, std::string::iterator end) {
 }
 
 void permute(std::string::iterator first, std::string::iterator end, permutation_fn fn) {
-  _permute(first, first, end, fn);
+  permute_(first, first, end, fn);
 }
 
 template<typename T>
 std::vector<std::vector<T>> combine_inc(T *begin_a, T *end_a, T *begin_b, T *end_b) {
   std::vector<std::vector<T>> result;
   std::vector<T> accumulator;
-  _combine_inc(begin_a, end_a, begin_b, end_b, result, accumulator);
+  combine_inc_(begin_a, end_a, begin_b, end_b, result, accumulator);
   return result;
+}
+
+void all_substrings(const std::string &str) {
+  std::string container;
+  container.reserve(str.size());
+  std::cout << "__" << std::endl;
+  all_substrings_(str, 0, container);
 }
 }  // namespace containers
