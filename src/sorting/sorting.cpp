@@ -68,21 +68,17 @@ void insertion_sort(T *begin, T *end, std::function<int(const T&, const T&)> com
 
 template<typename T>
 void quick_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp) {
-  if(begin >= end) return;
+  if(begin >= end -1) return;
 
-  auto *left{begin}, *right{end}, *pivot{left++};
+  auto left{begin}, right{end - 1}, pivot{left++};
   while(left < right) {
-    if(comp(*left, *pivot) <= 0) {
-      ++left;
-    } else {
-      while(right > left && comp(*right, *pivot) >= 0) --right;
-      std::swap(*left, *right);
-    }
+    while(left < right && *left <= *pivot) ++left;
+    while(right > left && *right >= *pivot) --right;
+    std::swap(*left, *right);
   }
   --left;
-  std::swap(*pivot, *left);
-
-  quick_sort(begin, left, comp);
-  quick_sort(right, end, comp);
+  std::swap(*left, *pivot);
+  quick_sort(begin, left + 1);
+  quick_sort(right, end);
 }
 } // namespace sorting
