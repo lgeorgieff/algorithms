@@ -15,9 +15,10 @@ template <typename T>
 void print_container(T begin, T end);
 
 int main() {
-  const size_t SIZE{10};
+  const size_t SIZE{15};
+  const size_t MAX_VALUE{10};
   int ints[SIZE];
-  for(size_t idx{0}; idx < SIZE; ++idx) ints[idx] = idx;
+  for(size_t idx{0}; idx < SIZE; ++idx) ints[idx] = idx % (MAX_VALUE + 1);
   randomize(ints, ints + SIZE);
   cout << "ints (randomize()): ";
   print_container(ints, ints + SIZE);
