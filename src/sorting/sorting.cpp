@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <random>
 #include <list>
+#include <vector>
 
 namespace sorting {
 template <typename T>
@@ -36,23 +37,20 @@ void bubble_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp) 
 
 template <typename T>
 void merge_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp) {
-  if (begin >= end - 1) return;
+  if(begin >= end - 1) return;
 
-  auto begin_left{begin}, end_left{begin + ((end - begin) / 2)}, begin_right{end_left},
-      end_right{end};
+  auto begin_l{begin}, end_l{begin + (end - begin) / 2}, begin_r{end_l}, end_r{end};
+  merge_sort(begin_l, end_l);
+  merge_sort(begin_r, end_r);
 
-  merge_sort(begin_left, end_left, comp);
-  merge_sort(begin_right, end_right, comp);
-
-  std::list<T> tmp;
-  while(begin_left < end_left && begin_right < end_right) {
-    if (comp(*begin_left, *begin_right) <= 0) tmp.push_back(*begin_left++);
-    else tmp.push_back(*begin_right++);
+  std::vector<T> storage;
+  while(begin_l < end_l && begin_r < end_r) {
+    if(*begin_l < *begin_r) storage.push_back(*begin_l++);
+    else storage.push_back(*begin_r++);
   }
-  while(begin_left < end_left) tmp.push_back(*begin_left++);
-  while(begin_right < end_right) tmp.push_back(*begin_right++);
-
-  for(auto iter_tmp{tmp.begin()}; iter_tmp != tmp.end(); ++iter_tmp) std::swap(*iter_tmp, *begin++);
+  while(begin_l < end_l) storage.push_back(*begin_l++);
+  while(begin_r < end_r) storage.push_back(*begin_r++);
+  std::copy(storage.begin(), storage.end(), begin);
 }
 
 template<typename T>
