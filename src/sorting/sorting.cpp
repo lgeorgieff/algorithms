@@ -140,8 +140,8 @@ void sorting::quick_sort(T *begin, T *end, std::function<int(const T&, const T&)
   
   auto left{begin}, right{end - 1}, pivot{left++};
   while(left < right) {
-    while(left < right && *left <= *pivot) ++left;
-    while(right > left && *right >= *pivot) --right;
+    while(left < right && comp(*left, *pivot) <= 0) ++left;
+    while(right > left && comp(*right, *pivot) >= 0) --right;
     std::swap(*left, *right);
   }
   --left;
