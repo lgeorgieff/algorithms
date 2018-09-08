@@ -62,9 +62,10 @@ int main() {
   randomize(ints,  ints + SIZE);
   cout << "ints (randomize()): ";
   print_container(ints,  ints + SIZE);
-  heap_sort(ints + 0,  ints + SIZE);
+  heap_sort(ints,  ints + SIZE);
   cout << "ints (heap_sort()): ";
   print_container(ints,  ints + SIZE);
+
   return 0;
 }
 

@@ -63,11 +63,7 @@ void build_heap(T *begin, T *end, std::function<int(const T&, const T&)> comp) {
 
   auto *current_node{begin + (end - begin) / 2};
   while(current_node >= begin) {
-    T *to_be_swapped{heap_smaller_child(current_node, begin, end, comp)};
-    if(to_be_swapped && comp(*to_be_swapped, *current_node) == -1) {
-      std::swap(*to_be_swapped, *current_node);
-      heapify_down(to_be_swapped, begin, end, comp);
-    }
+    heapify_down(current_node, begin, end, comp);
     --current_node;
   }
 }
