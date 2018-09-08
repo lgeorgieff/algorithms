@@ -117,7 +117,7 @@ void sorting::merge_sort(T *begin, T *end, std::function<int(const T&, const T&)
 
   std::vector<T> storage;
   while(begin_l < end_l && begin_r < end_r) {
-    if(*begin_l < *begin_r) storage.push_back(*begin_l++);
+    if(comp(*begin_l, *begin_r) == -1) storage.push_back(*begin_l++);
     else storage.push_back(*begin_r++);
   }
   while(begin_l < end_l) storage.push_back(*begin_l++);
