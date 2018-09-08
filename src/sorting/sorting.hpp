@@ -5,25 +5,28 @@
 namespace sorting {
 
 template <typename T>
-void randomize(T begin, T end);
+void randomize(T *begin, T *end);
 
 template <typename T>
-int comparator_fn(const T &a, const T &b);
+int comparator_smaller_fn(const T &a, const T &b);
+
+template <typename T>
+int comparator_greater_fn(const T &a, const T &b);
 
 template<typename T>
-void bubble_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_fn<T>);
+void bubble_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_smaller_fn<T>);
 
 template<typename T>
-void merge_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_fn<T>);
+void merge_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_smaller_fn<T>);
 
 template<typename T>
-void quick_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_fn<T>);
+void quick_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_smaller_fn<T>);
 
 template<typename T>
-void insertion_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_fn<T>);
+void insertion_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_smaller_fn<T>);
 
 template<typename T>
-void heap_sort(T &t);
+void heap_sort(T *begin, T *end, std::function<int(const T&, const T&)> comp = comparator_greater_fn<T>);
 } // namespace sorting
 
 #include "sorting.cpp"
