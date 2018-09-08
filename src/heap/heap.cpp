@@ -16,7 +16,7 @@ size_t get_capacity(size_t size) {
 }
 
 size_t get_parent(size_t index) {
-  size_t result{(index - 2) / 2};
+  size_t result{(index - 1) / 2};
   return result < 0 ? 0 : result;
 }
 
@@ -165,7 +165,7 @@ void algorithms::heap<T, COMP>::heapify_down(size_t index) {
 template<typename T, typename COMP>
 void algorithms::heap<T, COMP>::heapify() {
   if(size_<= 1) return;
-  size_t index{size_ / 2 -1};
+  size_t index{size_ / 2 + 1};
   while(index < size_) {
     heapify_down(index);
     --index;
