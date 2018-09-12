@@ -4,7 +4,7 @@
 
 template<typename T, size_t SIZE>
 void matrix::rotate_90(matrix_t<T, SIZE> &matrix) {
-  for(size_t row{0}; row < SIZE - 1; ++row) {
+  for(size_t row{0}; row < SIZE / 2; ++row) {
     for(size_t col{row}; col < SIZE - row - 1; ++col) {
       auto tmp{matrix[row][col]};
       matrix[row][col] = matrix[SIZE - col - 1][row];

@@ -24,13 +24,15 @@ int main() {
     array<char, SIZE_MATRIX_1> {'M', 'N', 'O', 'P'}
   };
 
-  const size_t SIZE_MATRIX_2{5};
+  const size_t SIZE_MATRIX_2{7};
   array<array<char, SIZE_MATRIX_2>, SIZE_MATRIX_2> matrix2 {
-      array<char, SIZE_MATRIX_2> {'A', 'B', 'C', 'D', 'E'},
-      array<char, SIZE_MATRIX_2> {'F', 'G', 'H', 'I', 'J'},
-      array<char, SIZE_MATRIX_2> {'K', 'L', 'M', 'N', 'O'},
-      array<char, SIZE_MATRIX_2> {'P', 'Q', 'R', 'S', 'T'},
-      array<char, SIZE_MATRIX_2> {'U', 'V', 'W', 'X', 'Y'}
+      array<char, SIZE_MATRIX_2> {'A', 'B', 'C', 'D', 'E', 'F', 'G'},
+      array<char, SIZE_MATRIX_2> {'H', 'I', 'J', 'K', 'L', 'M', 'N'},
+      array<char, SIZE_MATRIX_2> {'O', 'P', 'Q', 'R', 'S', 'T', 'U'},
+      array<char, SIZE_MATRIX_2> {'V', 'W', 'X', 'Y', 'Z', 'a', 'b'},
+      array<char, SIZE_MATRIX_2> {'c', 'd', 'e', 'f', 'g', 'h', 'i'},
+      array<char, SIZE_MATRIX_2> {'j', 'k', 'l', 'm', 'n', 'o', 'p'},
+      array<char, SIZE_MATRIX_2> {'q', 'r', 's', 't', 'u', 'v', 'w'}
   };
 
   cout << "Original matrix 1:" << endl;
