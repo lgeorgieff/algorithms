@@ -38,23 +38,11 @@ T* heap_smaller_child(T *node, T *begin, T *end, std::function<int(const T &, co
 
 template<typename T>
 void heapify_down(T *node, T *begin, T *end, std::function<int(const T&, const T&)> comp) {
-  auto left_child{heap_left_child(node, begin, end)}, right_child{heap_right_child(node, begin, end)};
-  if(!left_child && !right_child) return;
-
   T *to_be_swapped{heap_smaller_child(node, begin, end, comp)};
   if(to_be_swapped && comp(*to_be_swapped, *node) == -1) {
     std::swap(*node, *to_be_swapped);
     heapify_down(to_be_swapped, begin, end, comp);
   }
-}
-
-template<typename T>
-void heapify_up(T *node, T *begin, T *end, std::function<int(const T&, const T&)>) {
-  auto parent{heap_parent(node, begin)};
-  if(!parent || comp(*parent, *node) >= 0) return;
-
-  std::swap(*node, *parent);
-  heapify_up(parent, begin, end);
 }
 
 template<typename T>
