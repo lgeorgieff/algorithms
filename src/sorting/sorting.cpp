@@ -144,10 +144,14 @@ void sorting::quick_sort(T *begin, T *end, std::function<int(const T&, const T&)
     while(right > left && comp(*right, *pivot) >= 0) --right;
     std::swap(*left, *right);
   }
-  --left;
+  // In case left == right and *left < *right we swap this element with the pivot element otherwise we go one step back
+  // and swap this element wth the pivot element. In the latter case we can be sure that the element is <= the pivot
+  // element.
+  if(comp(*left, *pivot) >= 0) --left;
   std::swap(*left, *pivot);
-  quick_sort(begin, left + 1);
-  quick_sort(right, end);
+
+  quick_sort(begin, left, comp);
+  quick_sort(right, end, comp);
 }
 
 template<typename T>
