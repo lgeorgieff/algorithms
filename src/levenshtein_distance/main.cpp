@@ -7,7 +7,7 @@ using low::levenshtein_distance;
 using std::cout;
 using std::endl;
 
-int main(const int argc, const char **argv) {
+int main() {
   levenshtein_distance distance1("execution", "intention");
   cout << "distance(1, 1, 1) str1: " << distance1.str1()
        << ", str2: " << distance1.str2() << ": " << distance1.distance() << endl
@@ -48,6 +48,7 @@ int main(const int argc, const char **argv) {
        << ", str2: " << distance6.str2() << ": " << distance6.distance() << endl
        << endl
        << distance6.to_string() << endl;
+
 
   return 0;
 }
