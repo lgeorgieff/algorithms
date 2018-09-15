@@ -24,8 +24,8 @@ namespace low {
     std::string to_string() const noexcept;
     const std::string &str1() const noexcept;
     const std::string &str2() const noexcept;
-    size_t lines() const noexcept;
     size_t rows() const noexcept;
+    size_t cols() const noexcept;
     const config & config() const noexcept;
 
   private:
