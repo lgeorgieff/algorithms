@@ -5,6 +5,7 @@
 #include "base.hpp"
 #include "derived_a.hpp"
 #include "derived_b.hpp"
+#include "mixed_queue.hpp"
 
 using std::cout, std::endl;
 using std::chrono::seconds;
