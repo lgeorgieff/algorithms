@@ -1,9 +1,9 @@
 #pragma once
 
-#include "base.hpp"
+#include "timed_base.hpp"
 
 namespace oop {
-class derived_b : public base {
+class timed_b : public timed_base {
  public:
   std::string to_string() const noexcept override;
 };
