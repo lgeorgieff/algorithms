@@ -6,4 +6,4 @@ oop::base::base() noexcept
 
 long oop::base::timestamp() const noexcept { return timestamp_.count(); }
 
-std::string oop::base::to_string() const noexcept { return "base: " + std::to_string(timestamp()); }
+std::string oop::base::to_string() const noexcept { return "base:      " + std::to_string(timestamp()); }
