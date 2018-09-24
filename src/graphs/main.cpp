@@ -144,6 +144,7 @@ int main() {
   }
   cout << "print_pre_order_rec: "; print_pre_order_rec(simple_tree); cout << endl;
   cout << "print_in_order_rec: "; print_in_order_rec(simple_tree); cout << endl;
+  cout << "print_post_order_rec: "; print_post_order_rec(simple_tree); cout << endl;
 
   return 0;
 }
