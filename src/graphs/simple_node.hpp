@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 namespace algorithms {
 namespace simple_graph {
@@ -18,8 +19,8 @@ class node {
 
   const T &value() const noexcept;
   T &value() noexcept;
-  const std::vector<node> &links() const noexcept;
-  std::vector<node> &links() noexcept;
+  const std::vector<node *> &links() const noexcept;
+  std::vector<node *> &links() noexcept;
   bool has_link(const node *other) const noexcept;
   node *link(const node *other);
   node *sym_link(node *other);
@@ -31,6 +32,29 @@ class node {
   std::vector<node *> links_;
 };
 
+template<typename T>
+void print_pre_order_rec(const node<T> *root, const std::string &separator = " ");
+
+template<typename T>
+void print_pre_order_iter(const node<T> *root, const std::string &separator = " ");
+
+template<typename T>
+void print_in_order_rec(const node<T> *root);
+
+template<typename T>
+void print_in_order_iter(const node<T> *root);
+
+template<typename T>
+void print_post_order_rec(const node<T> *root);
+
+template<typename T>
+void print_post_order_iter(const node<T> *root);
+
+template<typename T>
+void print_breadth_first(const node<T> *root);
+
+template<typename T>
+void print_depths_first(const node<T> *root);
 } // namespace simple_graph
 } // namespace algorithm
 

@@ -22,6 +22,7 @@ using algorithms::graph::dijkstra_distance;
 using algorithms::graph::INFINITE;
 template<typename T>
 using simple_node = algorithms::simple_graph::node<T>;
+using algorithms::simple_graph::print_pre_order_rec;
 
 int main() {
   shared_ptr n0{node<int>::create(123)};
@@ -137,9 +138,11 @@ int main() {
     n1->link(3);
     n1->link(4)->link(7);
     auto *n2{simple_tree->link(2)};
-    n2->link(5)->link(8)->link(9);
-    n2->link(6);
+    n2->link(5)->link(8)->link(10);
+    n2->link(6)->link(9);
   }
+  cout << "print_pre_order" << endl;
+  print_pre_order_rec(simple_tree);
 
   return 0;
 }
