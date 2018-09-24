@@ -23,6 +23,7 @@ using algorithms::graph::INFINITE;
 template<typename T>
 using simple_node = algorithms::simple_graph::node<T>;
 using algorithms::simple_graph::print_pre_order_rec;
+using algorithms::simple_graph::print_in_order_rec;
 
 int main() {
   shared_ptr n0{node<int>::create(123)};
@@ -141,8 +142,8 @@ int main() {
     n2->link(5)->link(8)->link(10);
     n2->link(6)->link(9);
   }
-  cout << "print_pre_order" << endl;
-  print_pre_order_rec(simple_tree);
+  cout << "print_pre_order_rec: "; print_pre_order_rec(simple_tree); cout << endl;
+  cout << "print_in_order_rec: "; print_in_order_rec(simple_tree); cout << endl;
 
   return 0;
 }
