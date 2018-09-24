@@ -2,6 +2,8 @@
 #include "bfs.hpp"
 #include "dfs.hpp"
 #include "dijsktra.hpp"
+#include "simple_node.hpp"
+
 #include <iostream>
 
 using std::cout;
@@ -9,7 +11,6 @@ using std::endl;
 using std::shared_ptr;
 using std::function;
 using std::array;
-
 
 using algorithms::graph::node;
 using algorithms::graph::bfs_iterative;
@@ -19,6 +20,8 @@ using algorithms::graph::dfs_recursive;
 using algorithms::graph::graph_matrix;
 using algorithms::graph::dijkstra_distance;
 using algorithms::graph::INFINITE;
+template<typename T>
+using simple_node = algorithms::simple_graph::node<T>;
 
 int main() {
   shared_ptr n0{node<int>::create(123)};
@@ -126,6 +129,17 @@ int main() {
   array<size_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
   for (size_t node{0}; node < distances.size(); ++node)
     cout << "distance from 0 to " << node << ": " << distances[node] << endl;
+
+  cout << endl << "=== simple tree ===" << endl;
+  simple_node<int> *simple_tree{new simple_node<int>{0}};
+  {
+    auto *n1{simple_tree->link(1)};
+    n1->link(3);
+    n1->link(4)->link(7);
+    auto *n2{simple_tree->link(2)};
+    n2->link(5)->link(8)->link(9);
+    n2->link(6);
+  }
 
   return 0;
 }
