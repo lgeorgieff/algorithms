@@ -6,7 +6,6 @@
 #include <functional>
 
 namespace containers {
-
 std::vector<std::vector<std::string>> partition_string(const std::string &str);
 
 std::deque<int> shortest_subsequence(std::vector<int>::const_iterator begin,
@@ -28,6 +27,7 @@ void all_substrigns(const std::string &str);
 
 bool is_permutation(const std::string &lhs, const std::string &rhs);
 
+bool is_palindrome_permutation(const std::string &str);
 } // namespace containers
 
 #include "containers.cpp"

@@ -6,6 +6,8 @@
 #include <iostream>
 #include <map>
 #include <algorithm>
+#include <bitset>
+#include <stdexcept>
 
 namespace {
 bool is_palindrom(size_t left, size_t right, const std::string &str) {
@@ -77,6 +79,22 @@ void all_substrings_(const std::string &str, size_t pos, std::string &container)
     container.pop_back();
   }
 }
+
+const unsigned char ALPHA_LOWER_BEGIN{65};
+const unsigned char ALPHA_LOWER_END{91};
+const unsigned char ALPHA_UPPER_BEGIN{97};
+const unsigned char ALPHA_UPPER_END{123};
+constexpr unsigned char ALPHA_SPACE{ALPHA_LOWER_END - ALPHA_LOWER_BEGIN + ALPHA_UPPER_END - ALPHA_UPPER_BEGIN - 2};
+
+unsigned char to_alpha_space(unsigned char c) {
+  if(c >= ALPHA_LOWER_BEGIN && c < ALPHA_LOWER_END) {
+    return c - ALPHA_LOWER_BEGIN;
+  } else if (c >= ALPHA_UPPER_BEGIN && c < ALPHA_UPPER_END) {
+    return c - ALPHA_UPPER_BEGIN + (ALPHA_LOWER_END - ALPHA_LOWER_BEGIN - 1);
+  } else {
+    throw std::invalid_argument{"c is out of bound from ALPHA"};
+  }
+}
 }  // namespace
 
 namespace containers {
@@ -143,5 +161,11 @@ bool is_permutation(const std::string &lhs, const std::string &rhs) {
   for(const char c : lhs) ++chars[c];
   for(const char c : rhs) if(--chars[c] == -1) return false;
   return std::all_of(chars.begin(), chars.end(), [](const auto &pair){ return pair.second == 0; });
+}
+
+bool is_palindrome_permutation(const std::string &str) {
+  std::bitset<ALPHA_SPACE> storage;
+  for(unsigned char c : str) storage.flip(to_alpha_space(c));
+  return storage.count() <= 1;
 }
 }  // namespace containers

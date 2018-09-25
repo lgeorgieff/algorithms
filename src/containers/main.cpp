@@ -20,6 +20,7 @@ using containers::permutation_fn;
 using containers::combine_inc;
 using containers::all_substrings;
 using containers::is_permutation;
+using containers::is_palindrome_permutation;
 
 template<typename T>
 void print_container (const T &container, bool print_endl = true);
@@ -68,12 +69,27 @@ int main() {
   all_substrings("ABC");
 
   cout << endl << "=== is_permutation ===" << endl;
-  string str1{"abcdefghABCI"}, str2{"ABabCcIdhegf"}, str3{"cdeABabfCghI"}, str4{"abcdefghBBCI"}, str5{"abcdefghBCI"};
-  cout << str1 << " <> " << str1 << " -> " << (is_permutation(str1, str1) ? "true" : "false") << endl;
-  cout << str1 << " <> " << str2 << " -> " << (is_permutation(str1, str2) ? "true" : "false") << endl;
-  cout << str1 << " <> " << str3 << " -> " << (is_permutation(str1, str3) ? "true" : "false") << endl;
-  cout << str1 << " <> " << str4 << " -> " << (is_permutation(str1, str4) ? "true" : "false") << endl;
-  cout << str1 << " <> " << str5 << " -> " << (is_permutation(str1, str5) ? "true" : "false") << endl;
+  {
+    string str1{"abcdefghABCI"}, str2{"ABabCcIdhegf"}, str3{"cdeABabfCghI"}, str4{"abcdefghBBCI"}, str5{"abcdefghBCI"};
+    cout << str1 << " <> " << str1 << " -> " << (is_permutation(str1, str1) ? "true" : "false") << endl;
+    cout << str1 << " <> " << str2 << " -> " << (is_permutation(str1, str2) ? "true" : "false") << endl;
+    cout << str1 << " <> " << str3 << " -> " << (is_permutation(str1, str3) ? "true" : "false") << endl;
+    cout << str1 << " <> " << str4 << " -> " << (is_permutation(str1, str4) ? "true" : "false") << endl;
+    cout << str1 << " <> " << str5 << " -> " << (is_permutation(str1, str5) ? "true" : "false") << endl;
+  }
+  cout << endl << "=== is_palindrome_permutation ===" << endl;
+  {
+    string str1{"abCab"}, str2{"dadaBBBccdd"}, str3{"a"}, str4{"xx"}, str5{""}, str6{"abbc"}, str7{"aabbccayyb"},
+    str8{"abc"};
+    cout << "_" << str1 << "_ -> " << (is_palindrome_permutation(str1) ? "true" : "false") << endl;
+    cout << "_" << str2 << "_ -> " << (is_palindrome_permutation(str2) ? "true" : "false") << endl;
+    cout << "_" << str3 << "_ -> " << (is_palindrome_permutation(str3) ? "true" : "false") << endl;
+    cout << "_" << str4 << "_ -> " << (is_palindrome_permutation(str4) ? "true" : "false") << endl;
+    cout << "_" << str5 << "_ -> " << (is_palindrome_permutation(str5) ? "true" : "false") << endl;
+    cout << "_" << str6 << "_ -> " << (is_palindrome_permutation(str6) ? "true" : "false") << endl;
+    cout << "_" << str7 << "_ -> " << (is_palindrome_permutation(str7) ? "true" : "false") << endl;
+    cout << "_" << str8 << "_ -> " << (is_palindrome_permutation(str8) ? "true" : "false") << endl;
+  }
 
   return 0;
 }
