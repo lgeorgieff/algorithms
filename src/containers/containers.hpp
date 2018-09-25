@@ -26,6 +26,8 @@ std::vector<std::vector<T>> combine_inc(T *begin_a, T *end_a, T *begin_b, T *end
 
 void all_substrigns(const std::string &str);
 
+bool is_permutation(const std::string &lhs, const std::string &rhs);
+
 } // namespace containers
 
 #include "containers.cpp"

@@ -19,6 +19,7 @@ using containers::str_permute;
 using containers::permutation_fn;
 using containers::combine_inc;
 using containers::all_substrings;
+using containers::is_permutation;
 
 template<typename T>
 void print_container (const T &container, bool print_endl = true);
@@ -65,6 +66,14 @@ int main() {
 
   cout << endl << "=== all_substrings ===" << endl;
   all_substrings("ABC");
+
+  cout << endl << "=== is_permutation ===" << endl;
+  string str1{"abcdefghABCI"}, str2{"ABabCcIdhegf"}, str3{"cdeABabfCghI"}, str4{"abcdefghBBCI"}, str5{"abcdefghBCI"};
+  cout << str1 << " <> " << str1 << " -> " << (is_permutation(str1, str1) ? "true" : "false") << endl;
+  cout << str1 << " <> " << str2 << " -> " << (is_permutation(str1, str2) ? "true" : "false") << endl;
+  cout << str1 << " <> " << str3 << " -> " << (is_permutation(str1, str3) ? "true" : "false") << endl;
+  cout << str1 << " <> " << str4 << " -> " << (is_permutation(str1, str4) ? "true" : "false") << endl;
+  cout << str1 << " <> " << str5 << " -> " << (is_permutation(str1, str5) ? "true" : "false") << endl;
 
   return 0;
 }

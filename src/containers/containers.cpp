@@ -4,6 +4,8 @@
 
 #include <cstddef>
 #include <iostream>
+#include <map>
+#include <algorithm>
 
 namespace {
 bool is_palindrom(size_t left, size_t right, const std::string &str) {
@@ -132,5 +134,14 @@ void all_substrings(const std::string &str) {
   container.reserve(str.size());
   std::cout << "__" << std::endl;
   all_substrings_(str, 0, container);
+}
+
+bool is_permutation(const std::string &lhs, const std::string &rhs) {
+  if(lhs.size() != rhs.size()) return false;
+
+  std::map<char, ssize_t> chars;
+  for(const char c : lhs) ++chars[c];
+  for(const char c : rhs) if(--chars[c] == -1) return false;
+  return std::all_of(chars.begin(), chars.end(), [](const auto &pair){ return pair.second == 0; });
 }
 }  // namespace containers
