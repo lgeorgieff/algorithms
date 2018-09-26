@@ -61,7 +61,7 @@ algorithms::simple_graph::node<T> *algorithms::simple_graph::node<T>::sym_link(c
 }
 
 template<typename T>
-void algorithms::simple_graph::print_pre_order_rec(const node<T> *root, const std::string &separator) {
+void algorithms::simple_graph::print_pre_order_rec(node<T> * const root, const std::string &separator) {
   if(!root) return;
   std::cout << root->value() << separator;
   const std::vector<node<T> *> links{root->links()};
@@ -70,7 +70,7 @@ void algorithms::simple_graph::print_pre_order_rec(const node<T> *root, const st
 }
 
 template<typename T>
-void algorithms::simple_graph::print_in_order_rec(const node<T> *root, const std::string &separator) {
+void algorithms::simple_graph::print_in_order_rec(node<T> * const root, const std::string &separator) {
   if(!root) return;
   const std::vector<node<T> *> links{root->links()};
   print_in_order_rec(links.size() >= 1 ? links[0] : nullptr, separator);
@@ -79,7 +79,7 @@ void algorithms::simple_graph::print_in_order_rec(const node<T> *root, const std
 }
 
 template<typename T>
-void algorithms::simple_graph::print_post_order_rec(const node<T> *root, const std::string &separator) {
+void algorithms::simple_graph::print_post_order_rec(node<T> * const root, const std::string &separator) {
   if(!root) return;
   const std::vector<node<T> *> links{root->links()};
   print_post_order_rec(links.size() >= 1 ? links[0] : nullptr, separator);

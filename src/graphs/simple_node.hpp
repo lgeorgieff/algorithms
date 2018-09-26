@@ -33,28 +33,28 @@ class node {
 };
 
 template<typename T>
-void print_pre_order_rec(const node<T> *root, const std::string &separator = " ");
+void print_pre_order_rec(node<T> * const root, const std::string &separator = " ");
 
 template<typename T>
-void print_pre_order_iter(const node<T> *root, const std::string &separator = " ");
+void print_pre_order_iter(node<T> * const root, const std::string &separator = " ");
 
 template<typename T>
-void print_in_order_rec(const node<T> *root, const std::string &separator = " ");
+void print_in_order_rec(node<T> * const root, const std::string &separator = " ");
 
 template<typename T>
-void print_in_order_iter(const node<T> *root, const std::string &separator = " ");
+void print_in_order_iter(node<T> * const root, const std::string &separator = " ");
 
 template<typename T>
-void print_post_order_rec(const node<T> *root, const std::string &separator = " ");
+void print_post_order_rec(node<T> * const root, const std::string &separator = " ");
 
 template<typename T>
-void print_post_order_iter(const node<T> *root, const std::string &separator = " ");
+void print_post_order_iter(node<T> * const root, const std::string &separator = " ");
 
 template<typename T>
-void print_breadth_first(const node<T> *root, const std::string &separator = " ");
+void print_breadth_first(node<T> * const root, const std::string &separator = " ");
 
 template<typename T>
-void print_depths_first(const node<T> *root, const std::string &separator = " ");
+void print_depths_first(node<T> * const root, const std::string &separator = " ");
 } // namespace simple_graph
 } // namespace algorithm
 
