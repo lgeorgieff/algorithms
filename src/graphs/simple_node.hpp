@@ -22,7 +22,7 @@ class node {
   const std::vector<node *> &links() const noexcept;
   std::vector<node *> &links() noexcept;
   bool has_link(const node *other) const noexcept;
-  node *link(const node *other);
+  node *link(node *other);
   node *sym_link(node *other);
   node *link(const T &value_other);
   node *sym_link(const T &value_other);

@@ -132,19 +132,25 @@ int main() {
   for (size_t node{0}; node < distances.size(); ++node)
     cout << "distance from 0 to " << node << ": " << distances[node] << endl;
 
-  cout << endl << "=== simple tree ===" << endl;
-  simple_node<int> *simple_tree{new simple_node<int>{0}};
   {
+    cout << endl << "=== simple tree ===" << endl;
+    simple_node<int> *simple_tree{new simple_node<int>{0}};
     auto *n1{simple_tree->link(1)};
-    n1->link(3);
-    n1->link(4)->link(7);
+    auto *n3{n1->link(3)};
+    auto *n4{n1->link(4)};
+    auto *n7{n4->link(7)};
     auto *n2{simple_tree->link(2)};
-    n2->link(5)->link(8)->link(10);
-    n2->link(6)->link(9);
-  }
-  cout << "print_pre_order_rec: "; print_pre_order_rec(simple_tree); cout << endl;
-  cout << "print_in_order_rec: "; print_in_order_rec(simple_tree); cout << endl;
-  cout << "print_post_order_rec: "; print_post_order_rec(simple_tree); cout << endl;
+    auto *n5{n2->link(5)};
+    auto *n8{n5->link(8)};
+    auto *n10{n8->link(10)};
+    auto *n6{n2->link(6)};
+    auto *n9{n6->link(9)};
+    cout << "print_pre_order_rec: "; print_pre_order_rec(simple_tree); cout << endl;
+    cout << "print_in_order_rec: "; print_in_order_rec(simple_tree); cout << endl;
+    cout << "print_post_order_rec: "; print_post_order_rec(simple_tree); cout << endl;
 
+    delete simple_tree, delete n1, delete n2, delete n3, delete n4, delete n5, delete n6, delete n7, delete n8,
+        delete n9, delete n10;
+  }
   return 0;
 }

@@ -30,7 +30,7 @@ bool algorithms::simple_graph::node<T>::has_link(const algorithms::simple_graph:
 
 template<typename T>
 algorithms::simple_graph::node<T> *algorithms::simple_graph::node<T>::link(
-    const algorithms::simple_graph::node<T> *other) {
+    algorithms::simple_graph::node<T> *other) {
   if(!other) throw std::invalid_argument{"other must not be null"};
   links_.push_back(other);
   return other;
