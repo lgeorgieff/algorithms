@@ -24,6 +24,7 @@ template<typename T>
 using simple_node = algorithms::simple_graph::node<T>;
 using algorithms::simple_graph::print_pre_order_rec;
 using algorithms::simple_graph::print_in_order_rec;
+using algorithms::simple_graph::print_breadth_first;
 
 int main() {
   shared_ptr n0{node<int>::create(123)};
@@ -151,6 +152,19 @@ int main() {
 
     delete simple_tree, delete n1, delete n2, delete n3, delete n4, delete n5, delete n6, delete n7, delete n8,
         delete n9, delete n10;
+  }
+
+  {
+    cout << endl << "=== simple graph ===" << endl;
+    simple_node<int> *simple_graph{new simple_node<int>{0}};
+    auto *n1{simple_graph->link(1)};
+    auto *n2{simple_graph->link(2)};
+    auto *n3{n2->link(3)}; n3->link(n2); n3->link(simple_graph);
+    auto *n4{n3->link(4)}; n4->link(simple_graph); n4->link(n3);
+    auto *n5{n4->link(5)};
+    cout << "print_breadth_first: "; print_breadth_first(simple_graph); cout << endl;
+
+    delete simple_graph, delete n1, delete n2, delete n3, delete n4, delete n5;
   }
   return 0;
 }

@@ -4,7 +4,25 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <unordered_set>
 #include <iostream>
+#include <queue>
+
+namespace {
+  template<typename T>
+  struct pointer_compare {
+    bool operator()(const T lhs, const T rhs) const {
+      return lhs == rhs;
+    }
+  };
+
+  template<typename T>
+  struct pointer_hash {
+    size_t operator() (const T ptr) const {
+      return reinterpret_cast<size_t>(ptr);
+    }
+  };
+} // anonymous namespace
 
 template<typename T>
 algorithms::simple_graph::node<T>::node(const T &value) :value_{value}, links_{} {}
@@ -85,4 +103,27 @@ void algorithms::simple_graph::print_post_order_rec(node<T> * const root, const 
   print_post_order_rec(links.size() >= 1 ? links[0] : nullptr, separator);
   print_post_order_rec(links.size() >= 2 ? links[1] : nullptr, separator);
   std::cout << root->value() << separator;
+}
+
+template<typename T>
+void algorithms::simple_graph::print_breadth_first(node<T> * const root, const std::string &separator) {
+  if(!root) return;
+
+  std::unordered_set<node<T> *, pointer_hash<node<T> *>, pointer_compare<node<T> *>>  visited;
+  std::queue<node<T> *> next_nodes;
+
+  next_nodes.push(root);
+  while(!next_nodes.empty()) {
+    if(visited.find(next_nodes.front()) != visited.end()) {
+      next_nodes.pop();
+      continue;
+    }
+
+    visited.insert(next_nodes.front());
+    std::cout << next_nodes.front()->value() << separator;
+
+    for(auto iter{next_nodes.front()->links().begin()}; iter < next_nodes.front()->links().end(); ++iter)
+      next_nodes.push(*iter);
+    next_nodes.pop();
+  }
 }
