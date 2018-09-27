@@ -147,7 +147,8 @@ int main() {
     auto *n10{n8->link(10)};
     auto *n6{n2->link(6)};
     auto *n9{n6->link(9)};
-    cout << "print_pre_order_rec: "; print_pre_order_rec(simple_tree); cout << endl;
+    cout << "print_pre_order_rec:  "; print_pre_order_rec(simple_tree); cout << endl;
+    cout << "print_pre_order_iter: "; print_pre_order_iter(simple_tree); cout << endl;
     cout << "print_in_order_rec: "; print_in_order_rec(simple_tree); cout << endl;
     cout << "print_post_order_rec: "; print_post_order_rec(simple_tree); cout << endl;
 

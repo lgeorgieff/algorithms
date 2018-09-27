@@ -80,6 +80,11 @@ algorithms::simple_graph::node<T> *algorithms::simple_graph::node<T>::sym_link(c
 }
 
 template<typename T>
+bool algorithms::simple_graph::node<T>::empty() const noexcept {
+  return links_.empty();
+}
+
+template<typename T>
 void algorithms::simple_graph::print_pre_order_rec(node<T> * const root, const std::string &separator) {
   if(!root) return;
   std::cout << root->value() << separator;
@@ -149,6 +154,32 @@ void algorithms::simple_graph::print_depths_first(node<T> * const root, const st
     if(top == next_nodes.top()) {
       std::cout << top->value() << separator;
       next_nodes.pop();
+    }
+  }
+}
+
+template<typename T>
+void algorithms::simple_graph::print_pre_order_iter(node<T> * const root, const std::string &separator) {
+  if(!root) return;
+
+  std::stack<node<T> *> storage;
+  storage.push(root);
+  node<T> *current{root};
+
+  while(!storage.empty()) {
+    if(current) std::cout << current->value() << separator;
+    if(current && !current->empty()) {
+      current = current->links()[0];
+      storage.push(current);
+    } else {
+      if(storage.top()->links().size() == 2) {
+        current = storage.top()->links()[1];
+        storage.pop();
+        storage.push(current);
+      } else {
+        current = nullptr;
+        storage.pop();
+      }
     }
   }
 }
