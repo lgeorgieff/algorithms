@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <iostream>
 #include <queue>
+#include <stack>
 
 namespace {
   template<typename T>
@@ -109,21 +110,45 @@ template<typename T>
 void algorithms::simple_graph::print_breadth_first(node<T> * const root, const std::string &separator) {
   if(!root) return;
 
-  std::unordered_set<node<T> *, pointer_hash<node<T> *>, pointer_compare<node<T> *>>  visited;
+  std::unordered_set<node<T> *, pointer_hash<node<T> *>, pointer_compare<node<T> *>>  visited_nodes;
   std::queue<node<T> *> next_nodes;
 
   next_nodes.push(root);
   while(!next_nodes.empty()) {
-    if(visited.find(next_nodes.front()) != visited.end()) {
+    if(visited_nodes.find(next_nodes.front()) != visited_nodes.end()) {
       next_nodes.pop();
       continue;
     }
 
-    visited.insert(next_nodes.front());
+    visited_nodes.insert(next_nodes.front());
     std::cout << next_nodes.front()->value() << separator;
 
     for(auto iter{next_nodes.front()->links().begin()}; iter < next_nodes.front()->links().end(); ++iter)
       next_nodes.push(*iter);
     next_nodes.pop();
+  }
+}
+
+template<typename T>
+void algorithms::simple_graph::print_depths_first(node<T> * const root, const std::string &separator) {
+  if(!root) return;
+
+  std::unordered_set<node<T> *, pointer_hash<node<T> *>, pointer_compare<node<T> *>> marked_nodes;
+  std::stack<node<T> *> next_nodes;
+
+  next_nodes.push(root);
+  marked_nodes.insert(root);
+  while(!next_nodes.empty()) {
+    auto *top{next_nodes.top()};
+    for(auto *child : top->links()) {
+      if(marked_nodes.find(child) == marked_nodes.end()) {
+        marked_nodes.insert(child);
+        next_nodes.push(child);
+      }
+    }
+    if(top == next_nodes.top()) {
+      std::cout << top->value() << separator;
+      next_nodes.pop();
+    }
   }
 }
