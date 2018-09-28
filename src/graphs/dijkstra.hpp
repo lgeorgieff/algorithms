@@ -17,4 +17,4 @@ std::array<size_t, SIZE> dijkstra_distance(const graph_matrix<SIZE> &matrix,  si
 } // namespace graph
 } // graph
 
-#include "dijsktra.cpp"
+#include "dijkstra.cpp"

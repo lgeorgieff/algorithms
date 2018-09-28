@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dijsktra.hpp"
+#include "dijkstra.hpp"
 #include <map>
 #include <utility>
 #include <limits>

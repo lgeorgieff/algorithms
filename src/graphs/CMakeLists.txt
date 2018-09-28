@@ -7,6 +7,6 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(graphs
         main.cpp
         dfs.hpp
-        dijsktra.hpp
+        dijkstra.hpp
         node.hpp
         simple_node.hpp)

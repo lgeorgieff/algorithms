@@ -1,7 +1,7 @@
 #include "node.hpp"
 #include "bfs.hpp"
 #include "dfs.hpp"
-#include "dijsktra.hpp"
+#include "dijkstra.hpp"
 #include "simple_node.hpp"
 
 #include <iostream>
