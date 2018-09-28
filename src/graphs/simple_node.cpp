@@ -191,30 +191,25 @@ void algorithms::simple_graph::print_pre_order_iter(node<T> * const root, const 
 
 template<typename T>
 void algorithms::simple_graph::print_in_order_iter(node<T> * const root, const std::string &separator) {
-  if(!root) return;
+  if (!root) return;
 
-  std::stack<node<T> *> storage;
+  std::stack<node < T> *> storage;
   node<T> *current{root};
-  storage.push(root);
 
-  while(!storage.empty()) {
-    if(current) {
-      if(!current->empty()) {
-        current = current->links()[0];
-        storage.push(current);
-      } else {
-        current = nullptr;
-      }
+  auto done{false};
+  while (!done) {
+    if (current) {
+      storage.push(current);
+      if(!current->empty()) current = current->links()[0];
+      else current = nullptr;
     } else {
-     std::cout << storage.top()->value() << separator;
-     current = storage.top();
-     storage.pop();
-     if(current->size() == 2) {
-       storage.push(current->links()[1]);
-       current = storage.top();
-     } else {
-       current = nullptr;
-     }
+      if (storage.empty()) {
+        done = true;
+      } else {
+        std::cout << storage.top()->value() << separator;
+        if (storage.top()->size() == 2) current = storage.top()->links()[1];
+        storage.pop();
+      }
     }
   }
 }
