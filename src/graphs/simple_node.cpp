@@ -85,6 +85,11 @@ bool algorithms::simple_graph::node<T>::empty() const noexcept {
 }
 
 template<typename T>
+size_t algorithms::simple_graph::node<T>::size() const noexcept {
+  return links_.size();
+}
+
+template<typename T>
 void algorithms::simple_graph::print_pre_order_rec(node<T> * const root, const std::string &separator) {
   if(!root) return;
   std::cout << root->value() << separator;
@@ -172,7 +177,7 @@ void algorithms::simple_graph::print_pre_order_iter(node<T> * const root, const 
       current = current->links()[0];
       storage.push(current);
     } else {
-      if(storage.top()->links().size() == 2) {
+      if(storage.top()->size() == 2) {
         current = storage.top()->links()[1];
         storage.pop();
         storage.push(current);
@@ -180,6 +185,36 @@ void algorithms::simple_graph::print_pre_order_iter(node<T> * const root, const 
         current = nullptr;
         storage.pop();
       }
+    }
+  }
+}
+
+template<typename T>
+void algorithms::simple_graph::print_in_order_iter(node<T> * const root, const std::string &separator) {
+  if(!root) return;
+
+  std::stack<node<T> *> storage;
+  node<T> *current{root};
+  storage.push(root);
+
+  while(!storage.empty()) {
+    if(current) {
+      if(!current->empty()) {
+        current = current->links()[0];
+        storage.push(current);
+      } else {
+        current = nullptr;
+      }
+    } else {
+     std::cout << storage.top()->value() << separator;
+     current = storage.top();
+     storage.pop();
+     if(current->size() == 2) {
+       storage.push(current->links()[1]);
+       current = storage.top();
+     } else {
+       current = nullptr;
+     }
     }
   }
 }

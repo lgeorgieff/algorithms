@@ -22,6 +22,7 @@ class node {
   const std::vector<node *> &links() const noexcept;
   std::vector<node *> &links() noexcept;
   bool empty() const noexcept;
+  size_t size() const noexcept;
   bool has_link(const node *other) const noexcept;
   node *link(node *other);
   node *sym_link(node *other);

@@ -24,6 +24,9 @@ template<typename T>
 using simple_node = algorithms::simple_graph::node<T>;
 using algorithms::simple_graph::print_pre_order_rec;
 using algorithms::simple_graph::print_in_order_rec;
+using algorithms::simple_graph::print_post_order_rec;
+using algorithms::simple_graph::print_pre_order_iter;
+using algorithms::simple_graph::print_in_order_iter;
 using algorithms::simple_graph::print_breadth_first;
 using algorithms::simple_graph::print_depths_first;
 
@@ -149,7 +152,8 @@ int main() {
     auto *n9{n6->link(9)};
     cout << "print_pre_order_rec:  "; print_pre_order_rec(simple_tree); cout << endl;
     cout << "print_pre_order_iter: "; print_pre_order_iter(simple_tree); cout << endl;
-    cout << "print_in_order_rec: "; print_in_order_rec(simple_tree); cout << endl;
+    cout << "print_in_order_rec:  "; print_in_order_rec(simple_tree); cout << endl;
+    cout << "print_in_order_iter: "; print_in_order_iter(simple_tree); cout << endl;
     cout << "print_post_order_rec: "; print_post_order_rec(simple_tree); cout << endl;
 
     delete simple_tree, delete n1, delete n2, delete n3, delete n4, delete n5, delete n6, delete n7, delete n8,
