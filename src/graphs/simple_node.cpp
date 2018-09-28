@@ -218,3 +218,25 @@ void algorithms::simple_graph::print_in_order_iter(node<T> * const root, const s
     }
   }
 }
+
+template<typename T>
+void algorithms::simple_graph::print_post_order_iter(node<T> * const root, const std::string &separator) {
+  if (!root) return;
+  std::stack<node<T> *> storage;
+  storage.push(root);
+  node<T> *prev{nullptr};
+
+  while(!storage.empty()) {
+    auto *current{storage.top()};
+
+    if(!prev || prev->has_link(current)) {
+      if(!current->empty()) storage.push(current->links()[0]);
+    } else if(!current->empty() && current->links()[0] == prev) {
+      if(current->size() == 2) storage.push(current->links()[1]);
+    } else {
+      storage.pop();
+      std::cout << current->value() << separator;
+    }
+    prev = current;
+  }
+}
