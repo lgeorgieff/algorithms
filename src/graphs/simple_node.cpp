@@ -168,21 +168,20 @@ void algorithms::simple_graph::print_pre_order_iter(node<T> * const root, const 
   if(!root) return;
 
   std::stack<node<T> *> storage;
-  storage.push(root);
   node<T> *current{root};
+  auto done{false};
 
-  while(!storage.empty()) {
-    if(current) std::cout << current->value() << separator;
-    if(current && !current->empty()) {
-      current = current->links()[0];
+  while(!done) {
+    if(current) {
+      std::cout << current->value() << separator;
       storage.push(current);
+      if(!current->empty()) current = current->links()[0];
+      else current = nullptr;
     } else {
-      if(storage.top()->size() == 2) {
-        current = storage.top()->links()[1];
-        storage.pop();
-        storage.push(current);
+      if(storage.empty()) {
+        done = true;
       } else {
-        current = nullptr;
+        if (storage.top()->size() == 2) current = storage.top()->links()[1];
         storage.pop();
       }
     }
@@ -195,7 +194,6 @@ void algorithms::simple_graph::print_in_order_iter(node<T> * const root, const s
 
   std::stack<node < T> *> storage;
   node<T> *current{root};
-
   auto done{false};
   while (!done) {
     if (current) {
@@ -217,10 +215,10 @@ void algorithms::simple_graph::print_in_order_iter(node<T> * const root, const s
 template<typename T>
 void algorithms::simple_graph::print_post_order_iter(node<T> * const root, const std::string &separator) {
   if (!root) return;
+
   std::stack<node<T> *> storage;
   storage.push(root);
   node<T> *prev{nullptr};
-
   while(!storage.empty()) {
     auto *current{storage.top()};
 
