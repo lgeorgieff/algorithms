@@ -122,21 +122,44 @@ int main() {
   dfs_recursive(n0, fn_dfs);
   cout << endl;
 
-  cout << endl << "=== dijkstra ===" << endl;
-  const size_t GRAPH_SIZE{6};
+  {
+    cout << endl << "=== dijkstra 1 ===" << endl;
+    const size_t GRAPH_SIZE{6};
 
-  graph_matrix<GRAPH_SIZE> matrix{
-      array<size_t, GRAPH_SIZE>{0, 2, 4, INFINITE, INFINITE, INFINITE},
-      array<size_t, GRAPH_SIZE>{INFINITE, 0, 1, 4, 2, INFINITE},
-      array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 0, INFINITE, 3, INFINITE},
-      array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 0, INFINITE, 2},
-      array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 3, 0, 2},
-      array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0}
-  };
+    graph_matrix<GRAPH_SIZE> matrix{
+        array<size_t, GRAPH_SIZE>{0, 2, 4, INFINITE, INFINITE, INFINITE},
+        array<size_t, GRAPH_SIZE>{INFINITE, 0, 1, 4, 2, INFINITE},
+        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 0, INFINITE, 3, INFINITE},
+        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 0, INFINITE, 2},
+        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 3, 0, 2},
+        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0}
+    };
 
-  array<size_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
-  for (size_t node{0}; node < distances.size(); ++node)
-    cout << "distance from 0 to " << node << ": " << distances[node] << endl;
+    array<size_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
+    for (size_t node{0}; node < distances.size(); ++node)
+      cout << "distance from 0 to " << node << ": " << distances[node] << endl;
+  }
+
+  {
+    cout << endl << "=== dijkstra 2 ===" << endl;
+    const size_t GRAPH_SIZE{9};
+
+    graph_matrix<GRAPH_SIZE> matrix{
+        array<size_t, GRAPH_SIZE>{0, 4, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 8, INFINITE},
+        array<size_t, GRAPH_SIZE>{4, 0, 8, INFINITE, INFINITE, INFINITE, INFINITE, 11, INFINITE},
+        array<size_t, GRAPH_SIZE>{INFINITE, 8, 0, 7, INFINITE, 4, INFINITE, 7, 2},
+        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 7, 0, 9, 14, INFINITE, INFINITE, INFINITE},
+        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 9, 0, 10, INFINITE, INFINITE, INFINITE},
+        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 4, 14, 10, 0, 2, INFINITE, INFINITE},
+        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 2, 0, 1, 6},
+        array<size_t, GRAPH_SIZE>{8, 11, 7, INFINITE, INFINITE, INFINITE, 1, 0, INFINITE},
+        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 2, INFINITE, INFINITE, INFINITE, 6, INFINITE, 0}
+    };
+
+    array<size_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
+    for (size_t node{0}; node < distances.size(); ++node)
+      cout << "distance from 0 to " << node << ": " << distances[node] << endl;
+  }
 
   {
     cout << endl << "=== simple tree ===" << endl;

@@ -4,55 +4,35 @@
 #include <map>
 #include <utility>
 #include <limits>
-
-namespace {
-using algorithms::graph::INFINITE;
-
-template<size_t SIZE>
-std::map<size_t, size_t> find_direct_neighbours(const algorithms::graph::graph_matrix<SIZE> &matrix,
-    size_t node, size_t node_distance, const std::map<size_t, size_t> &queue) {
-  std::map<size_t, size_t> result;
-  auto row{matrix[node]};
-  for(size_t current_node{0}; current_node < row.size(); ++current_node) {
-    auto node_in_queue{queue.find(current_node)};
-    if(row[current_node] != INFINITE && current_node != node && node_in_queue != queue.cend()) {
-      result[current_node] = std::min(node_in_queue->second, row[current_node] + node_distance);
-    }
-  }
-  return result;
-}
-
-size_t find_min_node(const std::map<size_t, size_t> &queue) {
-  size_t node{0}, min{INFINITE};
-  for(auto const &entry : queue) {
-    if(entry.second <= min) {
-      node = entry.first;
-      min = entry.second;
-      if(min == 0) return node;
-    }
-  }
-  return node;
-}
-} // anonymous namespace
+#include <queue>
 
 template<size_t SIZE>
 std::array<size_t, SIZE> algorithms::graph::dijkstra_distance(const graph_matrix<SIZE> &matrix,
     size_t source) {
-  // node to distance
-  std::array<size_t, SIZE> visited;
-  // node to distance
-  std::map<size_t, size_t> queue;
+  if(source >= SIZE) throw std::out_of_range{"source index is out of graph's range"};
 
-  for(size_t node{0}; node < SIZE; ++node) queue[node] = source == node ? 0 : INFINITE;
+  std::array<size_t, SIZE> distances;
+  for(auto iter{distances.begin()}; iter < distances.end(); ++iter) *iter = INFINITE;
+  distances[source] = 0;
 
-  while(!queue.empty()) {
-    auto node{find_min_node(queue)};
-    auto weight{queue[node]};
-    queue.erase(node);
-    visited[node] = weight;
-    auto neighbour_weights{find_direct_neighbours(matrix, node, weight, queue)};
-    for(auto const &neighbour_weight : neighbour_weights) queue[neighbour_weight.first] = neighbour_weight.second;
+  using pair_t = std::pair<size_t, size_t>;
+  std::priority_queue<pair_t, std::vector<pair_t>, std::greater<pair_t>> priority_queue;
+  priority_queue.push(pair_t(0, source));
+
+  while(!priority_queue.empty()) {
+    auto next = priority_queue.top();
+    priority_queue.pop();
+
+    auto links{matrix[next.second]};
+    for(size_t other_node{0}; other_node < links.size(); ++other_node) {
+      // First check for INFINITE to avoid overflows
+      if(distances[next.second] != INFINITE && matrix[next.second][other_node] != INFINITE &&
+          distances[other_node] > distances[next.second] + matrix[next.second][other_node]) {
+        distances[other_node] = distances[next.second] + matrix[next.second][other_node];
+        priority_queue.push(pair_t(distances[other_node], other_node));
+      }
+    }
   }
 
-  return visited;
+  return distances;
 }
