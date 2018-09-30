@@ -5,6 +5,7 @@
 #include <utility>
 #include <limits>
 #include <queue>
+#include <bitset>
 
 template<size_t SIZE>
 std::array<size_t, SIZE> algorithms::graph::dijkstra_distance(const graph_matrix<SIZE> &matrix,
@@ -12,6 +13,7 @@ std::array<size_t, SIZE> algorithms::graph::dijkstra_distance(const graph_matrix
   if(source >= SIZE) throw std::out_of_range{"source index is out of graph's range"};
 
   std::array<size_t, SIZE> distances;
+  std::bitset<SIZE> calculated_nodes;
   for(auto iter{distances.begin()}; iter < distances.end(); ++iter) *iter = INFINITE;
   distances[source] = 0;
 
@@ -29,7 +31,10 @@ std::array<size_t, SIZE> algorithms::graph::dijkstra_distance(const graph_matrix
       if(distances[next.second] != INFINITE && matrix[next.second][other_node] != INFINITE &&
           distances[other_node] > distances[next.second] + matrix[next.second][other_node]) {
         distances[other_node] = distances[next.second] + matrix[next.second][other_node];
-        priority_queue.push(pair_t(distances[other_node], other_node));
+        if(!calculated_nodes[other_node]) {
+          priority_queue.push(pair_t(distances[other_node], other_node));
+          calculated_nodes.set(other_node);
+        }
       }
     }
   }
