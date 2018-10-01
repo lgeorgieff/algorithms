@@ -8,5 +8,6 @@ add_executable(graphs
         main.cpp
         dfs.hpp
         dijkstra.hpp
+        bellman_ford.hpp
         node.hpp
         simple_node.hpp)
