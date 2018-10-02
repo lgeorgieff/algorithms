@@ -6,7 +6,7 @@ namespace algorithms {
 namespace graph {
 
 template<size_t SIZE>
-std::array<size_t, SIZE> bellman_ford_distance(const graph_matrix<SIZE> &matrix,  size_t source);
+std::array<int32_t, SIZE> bellman_ford_distance(const matrix_t<SIZE> &matrix,  size_t source, bool throw_if_cycle);
 
 } // namespace graph
 } // namespace algorithms

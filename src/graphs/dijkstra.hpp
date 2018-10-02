@@ -6,13 +6,13 @@
 namespace algorithms {
 namespace graph {
 
-const size_t INFINITE{std::numeric_limits<size_t>::max()};
+const int32_t INFINITE{std::numeric_limits<int32_t >::max()};
 
 template<size_t SIZE>
-using graph_matrix = std::array<std::array<size_t, SIZE>, SIZE>;
+using matrix_t = std::array<std::array<int32_t, SIZE>, SIZE>;
 
 template<size_t SIZE>
-std::array<size_t, SIZE> dijkstra_distance(const graph_matrix<SIZE> &matrix,  size_t source);
+std::array<int32_t, SIZE> dijkstra_distance(const matrix_t<SIZE> &matrix,  size_t source);
 
 } // namespace graph
 } // graph

@@ -18,7 +18,7 @@ using algorithms::graph::bfs_iterative;
 using algorithms::graph::bfs_recursive;
 using algorithms::graph::dfs_iterative;
 using algorithms::graph::dfs_recursive;
-using algorithms::graph::graph_matrix;
+using algorithms::graph::matrix_t;
 using algorithms::graph::dijkstra_distance;
 using algorithms::graph::bellman_ford_distance;
 using algorithms::graph::INFINITE;
@@ -128,16 +128,16 @@ int main() {
     cout << endl << "=== dijkstra 1 ===" << endl;
     const size_t GRAPH_SIZE{6};
 
-    graph_matrix<GRAPH_SIZE> matrix{
-        array<size_t, GRAPH_SIZE>{0, 2, 4, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, 0, 1, 4, 2, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 0, INFINITE, 3, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 0, INFINITE, 2},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 3, 0, 2},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0}
+    matrix_t<GRAPH_SIZE> matrix{
+        array<int32_t, GRAPH_SIZE>{0, 2, 4, INFINITE, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, 0, 1, 4, 2, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, 0, INFINITE, 3, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 0, INFINITE, 2},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 3, 0, 2},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0}
     };
 
-    array<size_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
+    array<int32_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
     for (size_t node{0}; node < distances.size(); ++node)
       cout << "distance from 0 to " << node << ": " << distances[node] << endl;
   }
@@ -146,19 +146,19 @@ int main() {
     cout << endl << "=== dijkstra 2 ===" << endl;
     const size_t GRAPH_SIZE{9};
 
-    graph_matrix<GRAPH_SIZE> matrix{
-        array<size_t, GRAPH_SIZE>{0, 4, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 8, INFINITE},
-        array<size_t, GRAPH_SIZE>{4, 0, 8, INFINITE, INFINITE, INFINITE, INFINITE, 11, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, 8, 0, 7, INFINITE, 4, INFINITE, 7, 2},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 7, 0, 9, 14, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 9, 0, 10, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 4, 14, 10, 0, 2, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 2, 0, 1, 6},
-        array<size_t, GRAPH_SIZE>{8, 11, 7, INFINITE, INFINITE, INFINITE, 1, 0, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 2, INFINITE, INFINITE, INFINITE, 6, INFINITE, 0}
+    matrix_t<GRAPH_SIZE> matrix{
+        array<int32_t, GRAPH_SIZE>{0, 4, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 8, INFINITE},
+        array<int32_t, GRAPH_SIZE>{4, 0, 8, INFINITE, INFINITE, INFINITE, INFINITE, 11, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, 8, 0, 7, INFINITE, 4, INFINITE, 7, 2},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, 7, 0, 9, 14, INFINITE, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 9, 0, 10, INFINITE, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, 4, 14, 10, 0, 2, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 2, 0, 1, 6},
+        array<int32_t, GRAPH_SIZE>{8, 11, 7, INFINITE, INFINITE, INFINITE, 1, 0, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, 2, INFINITE, INFINITE, INFINITE, 6, INFINITE, 0}
     };
 
-    array<size_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
+    array<int32_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
     for (size_t node{0}; node < distances.size(); ++node)
       cout << "distance from 0 to " << node << ": " << distances[node] << endl;
   }
@@ -167,20 +167,20 @@ int main() {
     cout << endl << "=== bellman ford 1 ===" << endl;
     const size_t GRAPH_SIZE{10};
 
-    graph_matrix<GRAPH_SIZE> matrix{
-        array<size_t, GRAPH_SIZE>{0, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, 0, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, 0, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 0, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, 0, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0, INFINITE, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0, INFINITE, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0, INFINITE, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0, INFINITE},
-        array<size_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0}
+    matrix_t<GRAPH_SIZE> matrix{
+        array<int32_t, GRAPH_SIZE>{0, 5, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, 0, 20, INFINITE, INFINITE, 30, 60, INFINITE, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, 0, 10, 75, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, -15, 0, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, 0, INFINITE, INFINITE, INFINITE, INFINITE, 100},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0, 5, INFINITE, 50, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0, -50, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0, -10, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, 0}
     };
 
-    array<size_t, GRAPH_SIZE> distances{bellman_ford_distance<GRAPH_SIZE>(matrix, 0)};
+    array<int32_t, GRAPH_SIZE> distances{bellman_ford_distance<GRAPH_SIZE>(matrix, 0, false)};
     for (size_t node{0}; node < distances.size(); ++node)
       cout << "distance from 0 to " << node << ": " << distances[node] << endl;
   }

@@ -8,11 +8,10 @@
 #include <bitset>
 
 template<size_t SIZE>
-std::array<size_t, SIZE> algorithms::graph::dijkstra_distance(const graph_matrix<SIZE> &matrix,
-    size_t source) {
+std::array<int32_t, SIZE> algorithms::graph::dijkstra_distance(const matrix_t<SIZE> &matrix, size_t source) {
   if(source >= SIZE) throw std::out_of_range{"source index is out of graph's range"};
 
-  std::array<size_t, SIZE> distances;
+  std::array<int32_t, SIZE> distances;
   std::bitset<SIZE> calculated_nodes;
   for(auto iter{distances.begin()}; iter < distances.end(); ++iter) *iter = INFINITE;
   distances[source] = 0;
