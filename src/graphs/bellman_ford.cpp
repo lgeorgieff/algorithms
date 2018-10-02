@@ -7,7 +7,7 @@
 
 namespace {
 bool is_int32_t_overflow(int32_t val1, int32_t val2) {
-  return val1 == algorithms::graph::INFINITE || val2 == algorithms::graph::INFINITE;
+  return (val1 > 0 && val2 > 0 && val1 + val2 < 0) || (val1 < 0 && val2 < 0 && val1 + val2 > 0);
 }
 
 template<size_t SIZE>
