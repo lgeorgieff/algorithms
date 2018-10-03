@@ -196,8 +196,8 @@ int main() {
         array<int32_t, GRAPH_SIZE>{0, 7, INFINITE, 5, INFINITE, INFINITE, INFINITE},
         array<int32_t, GRAPH_SIZE>{7, 0, 8, 9, 7, INFINITE, INFINITE},
         array<int32_t, GRAPH_SIZE>{INFINITE, 8, 0, INFINITE, 5, INFINITE, INFINITE},
-        array<int32_t, GRAPH_SIZE>{1, 9, INFINITE, 0, 15, 6, INFINITE},
-        array<int32_t, GRAPH_SIZE>{INFINITE, 7, 2, 15, 0, 8, 9},
+        array<int32_t, GRAPH_SIZE>{5, 9, INFINITE, 0, 15, 6, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, 7, 5, 15, 0, 8, 9},
         array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 6, 8, 0, 11},
         array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, 9, 11, 0}
     };

@@ -4,15 +4,6 @@
 #include <unordered_set>
 #include <map>
 
-namespace {
-struct pair_hash {
-  size_t operator()(const std::pair<size_t, size_t> &elem) const {
-    return elem.first ^ elem.second;
-  }
-};
-
-} // anonymous namespace
-
 template<size_t SIZE>
 algorithms::graph::matrix_t<SIZE> algorithms::graph::kruskal_mst(const algorithms::graph::matrix_t<SIZE> &matrix) {
   using edge = std::pair<size_t, size_t>;
@@ -21,16 +12,22 @@ algorithms::graph::matrix_t<SIZE> algorithms::graph::kruskal_mst(const algorithm
   std::multimap<int32_t, edge> edge_queue;
   for(size_t line{0}; line < SIZE; ++line) {
     for (size_t col{0}; col < SIZE; ++col) {
-      if(matrix[line][col] != INFINITE) edge_queue.insert(std::pair(matrix[line][col], edge(line, col)));
+      if(matrix[line][col] != INFINITE && line != col) edge_queue.insert(std::pair(matrix[line][col], edge(line, col)));
     }
   }
 
-  std::unordered_set<edge, pair_hash> mst_edges;
-  mst_edges.reserve(SIZE - 1);
+  std::unordered_set<size_t> mst_vertices;
+  mst_vertices.reserve(SIZE);
 
-  while(mst_edges.size() < SIZE - 1) {
-    mst_edges.insert(edge_queue.begin()->second);
-    edge_queue.erase(edge_queue.begin());
+  while(mst_vertices.size() < SIZE) {
+    auto edge{edge_queue.begin()};
+    if(mst_vertices.find(edge->second.first) == mst_vertices.end() || mst_vertices.find(edge->second.second) == mst_vertices.end()) {
+      mst[edge->second.first][edge->second.second] = matrix[edge->second.first][edge->second.second];
+      mst[edge->second.second][edge->second.first] = matrix[edge->second.second][edge->second.first];
+      mst_vertices.insert(edge->second.first);
+      mst_vertices.insert(edge->second.second);
+    }
+    edge_queue.erase(edge);
   }
 
   return mst;
