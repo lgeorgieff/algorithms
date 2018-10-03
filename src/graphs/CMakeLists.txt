@@ -9,5 +9,6 @@ add_executable(graphs
         dfs.hpp
         dijkstra.hpp
         bellman_ford.hpp
+        kruskal.hpp
         node.hpp
         simple_node.hpp)

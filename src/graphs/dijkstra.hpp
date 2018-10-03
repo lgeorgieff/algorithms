@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <array>
+#include <iostream>
 
 namespace algorithms {
 namespace graph {
@@ -13,6 +14,9 @@ using matrix_t = std::array<std::array<int32_t, SIZE>, SIZE>;
 
 template<size_t SIZE>
 std::array<int32_t, SIZE> dijkstra_distance(const matrix_t<SIZE> &matrix,  size_t source);
+
+template<size_t SIZE>
+void print_matrix(std::ostream &out, const matrix_t<SIZE> &graph, unsigned short item_width = 3);
 
 } // namespace graph
 } // graph

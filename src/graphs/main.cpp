@@ -3,6 +3,7 @@
 #include "dfs.hpp"
 #include "dijkstra.hpp"
 #include "bellman_ford.hpp"
+#include "kruskal.hpp"
 #include "simple_node.hpp"
 
 #include <iostream>
@@ -21,7 +22,9 @@ using algorithms::graph::dfs_recursive;
 using algorithms::graph::matrix_t;
 using algorithms::graph::dijkstra_distance;
 using algorithms::graph::bellman_ford_distance;
+using algorithms::graph::kruskal_mst;
 using algorithms::graph::INFINITE;
+using algorithms::graph::print_matrix;
 template<typename T>
 using simple_node = algorithms::simple_graph::node<T>;
 using algorithms::simple_graph::print_pre_order_rec;
@@ -164,7 +167,7 @@ int main() {
   }
 
   {
-    cout << endl << "=== bellman ford 1 ===" << endl;
+    cout << endl << "=== bellman ford ===" << endl;
     const size_t GRAPH_SIZE{10};
 
     matrix_t<GRAPH_SIZE> matrix{
@@ -183,6 +186,25 @@ int main() {
     array<int32_t, GRAPH_SIZE> distances{bellman_ford_distance<GRAPH_SIZE>(matrix, 0, false)};
     for (size_t node{0}; node < distances.size(); ++node)
       cout << "distance from 0 to " << node << ": " << distances[node] << endl;
+  }
+
+  {
+    cout << endl << "=== kruskal ===" << endl;
+    const size_t GRAPH_SIZE{7};
+
+    matrix_t<GRAPH_SIZE> matrix{
+        array<int32_t, GRAPH_SIZE>{0, 7, INFINITE, 5, INFINITE, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{7, 0, 8, 9, 7, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, 8, 0, INFINITE, 5, INFINITE, INFINITE},
+        array<int32_t, GRAPH_SIZE>{1, 9, INFINITE, 0, 15, 6, INFINITE},
+        array<int32_t, GRAPH_SIZE>{INFINITE, 7, 2, 15, 0, 8, 9},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, 6, 8, 0, 11},
+        array<int32_t, GRAPH_SIZE>{INFINITE, INFINITE, INFINITE, INFINITE, 9, 11, 0}
+    };
+
+    matrix_t<GRAPH_SIZE> spanning_tree{kruskal_mst<GRAPH_SIZE>(matrix)};
+    print_matrix(std::cout, spanning_tree, 2);
+    cout << endl;
   }
 
   {

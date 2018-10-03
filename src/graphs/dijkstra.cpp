@@ -6,6 +6,34 @@
 #include <limits>
 #include <queue>
 #include <bitset>
+#include <string>
+
+namespace {
+std::string to_string(int32_t item, unsigned short item_width, bool centered = true) {
+  std::string str{std::to_string(item)};
+  if(str.size() > item_width) str = "";
+  while(str.size() < item_width) {
+    str += " ";
+    if(centered && str.size() < item_width) str = " " + str;
+  }
+  return str;
+}
+} // anonymous namespace
+
+template<size_t SIZE>
+void algorithms::graph::print_matrix(std::ostream &out, const matrix_t<SIZE> &graph, unsigned short item_width) {
+  out << std::string(item_width + 1, ' ');
+  for(size_t line{0}; line < SIZE; ++line) out << to_string(line, item_width, false) << " ";
+  out << std::endl;
+
+  for(size_t line{0}; line < SIZE; ++line) {
+    out << to_string(line, item_width) << " ";
+    for(size_t col{0}; col < SIZE; ++col) {
+      out << to_string(graph[line][col], item_width) << " ";
+    }
+    out << std::endl;
+  }
+}
 
 template<size_t SIZE>
 std::array<int32_t, SIZE> algorithms::graph::dijkstra_distance(const matrix_t<SIZE> &matrix, size_t source) {
