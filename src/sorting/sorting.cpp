@@ -96,8 +96,8 @@ void sorting::merge_sort(T *begin, T *end, std::function<int(const T&, const T&)
   if(begin >= end - 1) return;
 
   auto begin_l{begin}, end_l{begin + (end - begin) / 2}, begin_r{end_l}, end_r{end};
-  merge_sort(begin_l, end_l);
-  merge_sort(begin_r, end_r);
+  merge_sort(begin_l, end_l, comp);
+  merge_sort(begin_r, end_r, comp);
 
   std::vector<T> storage;
   while(begin_l < end_l && begin_r < end_r) {
