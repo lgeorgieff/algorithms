@@ -204,7 +204,6 @@ int main() {
 
     matrix_t<GRAPH_SIZE> spanning_tree{kruskal_mst<GRAPH_SIZE>(matrix)};
     print_matrix(std::cout, spanning_tree, 2);
-    cout << endl;
   }
 
   {
