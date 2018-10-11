@@ -20,6 +20,7 @@ using algorithms::graph::bfs_recursive;
 using algorithms::graph::dfs_iterative;
 using algorithms::graph::dfs_recursive;
 using algorithms::graph::matrix_t;
+using algorithms::graph::graph_t;
 using algorithms::graph::dijkstra_distance;
 using algorithms::graph::bellman_ford_distance;
 using algorithms::graph::kruskal_mst;
@@ -128,7 +129,7 @@ int main() {
   cout << endl;
 
   {
-    cout << endl << "=== dijkstra 1 ===" << endl;
+    cout << endl << "=== dijkstra 1 adjacency matrix ===" << endl;
     const size_t GRAPH_SIZE{6};
 
     matrix_t<GRAPH_SIZE> matrix{
@@ -141,6 +142,12 @@ int main() {
     };
 
     array<int32_t, GRAPH_SIZE> distances{dijkstra_distance<GRAPH_SIZE>(matrix, 0)};
+    for (size_t node{0}; node < distances.size(); ++node)
+      cout << "distance from 0 to " << node << ": " << distances[node] << endl;
+
+    cout << endl << "=== dijkstra 1 adjacency list ===" << endl;
+    graph_t graph{matrix};
+    distances = graph.dijkstra_distance(0);
     for (size_t node{0}; node < distances.size(); ++node)
       cout << "distance from 0 to " << node << ": " << distances[node] << endl;
   }

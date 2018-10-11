@@ -68,3 +68,50 @@ std::array<int32_t, SIZE> algorithms::graph::dijkstra_distance(const matrix_t<SI
 
   return distances;
 }
+
+template<size_t SIZE>
+algorithms::graph::graph_t<SIZE>::graph_t(const matrix_t<SIZE> &matrix) :links_{} {
+  for(size_t line{0}; line < SIZE; ++line)
+    for(size_t row{0}; row < SIZE; ++row)
+      links_[line].push_back(std::pair(row, matrix[line][row]));
+}
+
+template<size_t SIZE>
+void algorithms::graph::graph_t<SIZE>::add_edge(size_t from, size_t to, int32_t weight) {
+  if(from >= SIZE) throw std::out_of_range{"from is out of range"};
+  if(to >= SIZE) throw std::out_of_range{"to is out of range"};
+  links_[from].push_back(std::pair(to, weight));
+}
+
+template<size_t SIZE>
+const std::vector<std::pair<size_t, int32_t>> &algorithms::graph::graph_t<SIZE>::links(size_t node) const noexcept {
+  if(node >= SIZE) throw std::out_of_range{"node is out of range"};
+  return links_[node];
+}
+
+template<size_t SIZE>
+size_t algorithms::graph::graph_t<SIZE>::size() const noexcept { return SIZE; }
+
+template<size_t SIZE>
+void algorithms::graph::graph_t<SIZE>::print(std::ostream &out, unsigned short item_width) const {
+  print_matrix(out, to_matrix(), item_width);
+}
+
+template<size_t SIZE>
+algorithms::graph::matrix_t<SIZE> algorithms::graph::graph_t<SIZE>::to_matrix() const {
+  matrix_t<SIZE> result{};
+  for(size_t node{0}; node < SIZE; ++node) {
+    for(size_t link{0}; link < SIZE; ++link)
+      result[node][link] = INFINITE;
+    for(size_t link{0}; link < links_[node].size(); ++link)
+      result[node][links_[node][link].first] = links_[node][link].second ;
+  }
+  return result;
+}
+
+template<size_t SIZE>
+std::array<int32_t, SIZE> algorithms::graph::graph_t<SIZE>::dijkstra_distance(size_t source) const {
+  std::array<int32_t, SIZE> distances;
+  // TODO: implement dijkstra
+  return distances;
+}
