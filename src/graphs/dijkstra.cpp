@@ -73,7 +73,7 @@ template<size_t SIZE>
 algorithms::graph::graph_t<SIZE>::graph_t(const matrix_t<SIZE> &matrix) :links_{} {
   for(size_t line{0}; line < SIZE; ++line)
     for(size_t row{0}; row < SIZE; ++row)
-      links_[line].push_back(std::pair(row, matrix[line][row]));
+      if(matrix[line][row] != INFINITE && line != row) links_[line].push_back(std::pair(row, matrix[line][row]));
 }
 
 template<size_t SIZE>
@@ -84,7 +84,7 @@ void algorithms::graph::graph_t<SIZE>::add_edge(size_t from, size_t to, int32_t 
 }
 
 template<size_t SIZE>
-const std::vector<std::pair<size_t, int32_t>> &algorithms::graph::graph_t<SIZE>::links(size_t node) const noexcept {
+const std::vector<std::pair<size_t, int32_t>> &algorithms::graph::graph_t<SIZE>::links(size_t node) const {
   if(node >= SIZE) throw std::out_of_range{"node is out of range"};
   return links_[node];
 }
@@ -112,6 +112,25 @@ algorithms::graph::matrix_t<SIZE> algorithms::graph::graph_t<SIZE>::to_matrix() 
 template<size_t SIZE>
 std::array<int32_t, SIZE> algorithms::graph::graph_t<SIZE>::dijkstra_distance(size_t source) const {
   std::array<int32_t, SIZE> distances;
-  // TODO: implement dijkstra
+
+  using pair_t = std::pair<size_t, int32_t>;
+  std::map<size_t, int32_t> remaining_nodes;
+  for(size_t node{0}; node < SIZE; ++node) remaining_nodes.insert(pair_t{node, node == source ? 0 : INFINITE});
+
+  while(!remaining_nodes.empty()) {
+    auto next_iter{remaining_nodes.begin()};
+    for(auto iter{remaining_nodes.begin()} ; iter != remaining_nodes.end(); ++iter)
+      if(next_iter->second > iter->second) next_iter = iter;
+    distances[next_iter->first] = next_iter->second;
+    auto tmp{links(next_iter->first)};
+    for(const auto &link : links(next_iter->first)) {
+      if(remaining_nodes.find(link.first) != remaining_nodes.end() &&
+          (remaining_nodes[link.first] == INFINITE ||
+           remaining_nodes[link.first] > distances[next_iter->first] + link.second)) {
+        remaining_nodes[link.first] = distances[next_iter->first] + link.second;
+      }
+    }
+    remaining_nodes.erase(next_iter);
+  }
   return distances;
 }

@@ -27,7 +27,7 @@ class graph_t {
   ~graph_t() noexcept = default;
 
   void add_edge(size_t from, size_t to, int32_t weight);
-  const std::vector<link_t> &links(size_t node) const noexcept;
+  const std::vector<link_t> &links(size_t node) const;
   size_t size() const noexcept;
   void print(std::ostream &out, unsigned short item_width = 3) const;
   matrix_t<SIZE> to_matrix() const;
